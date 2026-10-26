@@ -1,0 +1,190 @@
+const SETTINGS_DEVICE = "ESP32-001";
+
+async function loadSettings() {
+
+    try {
+
+        const response = await fetch(
+            `/api/v1/devices/${SETTINGS_DEVICE}/settings`
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+            showSettingsMessage(result.message, false);
+            return;
+        }
+
+        const settings = result.data;
+
+        document.getElementById("mode").value =
+            settings.mode;
+
+        document.getElementById("temperatureOnThreshold").value =
+            settings.temperature_on_threshold;
+
+        document.getElementById("temperatureOffThreshold").value =
+            settings.temperature_off_threshold;
+
+        updateManualControl();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showSettingsMessage(
+            "Gagal mengambil pengaturan.",
+            false
+        );
+    }
+}
+
+
+async function saveSettings() {
+
+    const mode =
+        document.getElementById("mode").value;
+
+    const onThreshold =
+        parseFloat(
+            document.getElementById(
+                "temperatureOnThreshold"
+            ).value
+        );
+
+    const offThreshold =
+        parseFloat(
+            document.getElementById(
+                "temperatureOffThreshold"
+            ).value
+        );
+
+
+    if (isNaN(onThreshold) || isNaN(offThreshold)) {
+
+        showSettingsMessage(
+            "Threshold harus berupa angka.",
+            false
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `/api/v1/devices/${SETTINGS_DEVICE}/settings`,
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    mode: mode,
+
+                    temperature_on_threshold:
+                        onThreshold,
+
+                    temperature_off_threshold:
+                        offThreshold
+
+                })
+            }
+        );
+
+
+        const result = await response.json();
+
+
+        if (!result.success) {
+
+            showSettingsMessage(
+                result.message,
+                false
+            );
+
+            return;
+        }
+
+
+        showSettingsMessage(
+            "Pengaturan berhasil disimpan.",
+            true
+        );
+
+        updateManualControl();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showSettingsMessage(
+            "Terjadi kesalahan saat menyimpan.",
+            false
+        );
+    }
+}
+
+
+function updateManualControl() {
+
+    const mode =
+        document.getElementById("mode").value;
+
+    const manual =
+        document.getElementById("manualControl");
+
+    if (!manual) {
+        return;
+    }
+
+    if (mode === "MANUAL") {
+        manual.style.display = "block";
+    } else {
+        manual.style.display = "none";
+    }
+}
+
+
+function showSettingsMessage(message, success) {
+
+    const element =
+        document.getElementById("settingsMessage");
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent = message;
+
+    element.className =
+        success
+            ? "message success"
+            : "message error";
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const mode =
+            document.getElementById("mode");
+
+        if (mode) {
+
+            mode.addEventListener(
+                "change",
+                updateManualControl
+            );
+
+            loadSettings();
+        }
+
+    }
+);

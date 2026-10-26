@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}
+Monitoring
+{% endblock %}
+
+{% block css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/monitoring.css') }}"
+>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1>Monitoring</h1>
+    <p>Monitoring sensor DHT11 secara realtime.</p>
+</div>
+
+
+<div class="monitoring-grid">
+
+    <div class="chart-panel">
+
+        <h2>Temperature</h2>
+
+        <p>
+            Monitoring suhu dari sensor DHT11.
+        </p>
+
+        <div class="chart-container">
+            <canvas id="temperatureChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <div class="chart-panel">
+
+        <h2>Humidity</h2>
+
+        <p>
+            Monitoring kelembapan dari sensor DHT11.
+        </p>
+
+        <div class="chart-container">
+            <canvas id="humidityChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="monitoring-info">
+
+    <div class="info-card">
+
+        <h3>Temperature</h3>
+
+        <div
+            class="info-value"
+            id="monitorTemperature"
+        >
+            --
+        </div>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>Humidity</h3>
+
+        <div
+            class="info-value"
+            id="monitorHumidity"
+        >
+            --
+        </div>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>Relay</h3>
+
+        <div
+            class="info-value"
+            id="monitorRelay"
+        >
+            --
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+<script src="{{ url_for('static', filename='js/monitoring.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Dashboard - IoT DHT11
+{% endblock %}
+
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+
+{% block page_description %}
+Monitoring kondisi perangkat IoT secara realtime
+{% endblock %}
+
+{% block css %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/dashboard.css'
+    ) }}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+
+<!-- SENSOR CARDS -->
+
+<div class="dashboard-grid">
+
+
+    <!-- TEMPERATURE -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Temperature
+            </span>
+
+            <div class="sensor-icon temperature">
+                🌡️
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="temperature">
+                --
+            </span>
+
+            <small>
+                °C
+            </small>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span id="temperatureStatus">
+                Waiting...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- HUMIDITY -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Humidity
+            </span>
+
+            <div class="sensor-icon humidity">
+                💧
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="humidity">
+                --
+            </span>
+
+            <small>
+                %
+            </small>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span id="humidityStatus">
+                Waiting...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- RELAY -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Relay / Lamp
+            </span>
+
+            <div class="sensor-icon relay">
+                💡
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="relay">
+                OFF
+            </span>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span id="relayStatus">
+                Waiting...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODE -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Operating Mode
+            </span>
+
+            <div class="sensor-icon mode">
+                ⚙️
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="mode">
+                AUTO
+            </span>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span>
+                Temperature control
+            </span>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- MAIN DASHBOARD -->
+
+<div class="dashboard-columns">
+
+
+    <!-- CHART -->
+
+    <div class="panel chart-panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Sensor Monitoring
+                </h2>
+
+                <p>
+                    Temperature & humidity
+                </p>
+
+            </div>
+
+
+            <span class="live-badge">
+                ● LIVE
+            </span>
+
+        </div>
+
+
+        <div class="chart-container">
+
+            <canvas
+                id="sensorChart"
+            ></canvas>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- SYSTEM STATUS -->
+
+    <div class="panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    System Status
+                </h2>
+
+                <p>
+                    Current device information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="status-list">
+
+
+            <div class="status-item">
+
+                <span>
+                    ESP32
+                </span>
+
+                <strong
+                    id="deviceStatus"
+                >
+                    OFFLINE
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    DHT11 Sensor
+                </span>
+
+                <strong
+                    id="sensorStatus"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Relay
+                </span>
+
+                <strong
+                    id="deviceRelay"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Threshold
+                </span>
+
+                <strong>
+
+                    <span id="threshold">
+                        --
+                    </span>
+
+                    °C
+
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Last Update
+                </span>
+
+                <strong
+                    id="lastUpdate"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- QUICK CONTROL -->
+
+<div class="panel">
+
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2>
+                Quick Control
+            </h2>
+
+            <p>
+                Kontrol perangkat secara manual
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="quick-control">
+
+
+        <div>
+
+            <span>
+                Relay Lampu
+            </span>
+
+            <small>
+                Manual control
+            </small>
+
+        </div>
+
+
+        <div class="control-buttons">
+
+            <button
+                class="btn btn-success"
+                onclick="setRelay(true)"
+            >
+                💡 ON
+            </button>
+
+
+            <button
+                class="btn btn-danger"
+                onclick="setRelay(false)"
+            >
+                ⛔ OFF
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/dashboard.js'
+    ) }}"
+></script>
+
+{% endblock %}

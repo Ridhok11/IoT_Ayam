@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Riwayat Sensor{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="history-page">
+
+    <header class="page-header history-page-header">
+        <div>
+            <span class="history-eyebrow">SMART POULTRY HOUSE</span>
+            <h1>Riwayat Sensor</h1>
+            <p>Pantau dan telusuri riwayat suhu, kelembapan, serta status relay kandang.</p>
+        </div>
+
+        <a href="{{ url_for('web.export_history_csv') }}" class="export-button">
+            <span aria-hidden="true">↓</span>
+            Export CSV
+        </a>
+    </header>
+
+    <section class="history-stats">
+        <article class="history-stat-card">
+            <div class="stat-icon stat-icon-blue">▤</div>
+            <div>
+                <p>Total Pembacaan</p>
+                <h2 id="historyTotal">—</h2>
+                <span>Data yang ditampilkan</span>
+            </div>
+        </article>
+
+        <article class="history-stat-card">
+            <div class="stat-icon stat-icon-orange">♨</div>
+            <div>
+                <p>Suhu Tertinggi</p>
+                <h2 id="historyMaxTemperature">—</h2>
+                <span>Dari hasil pencarian</span>
+            </div>
+        </article>
+
+        <article class="history-stat-card">
+            <div class="stat-icon stat-icon-green">◉</div>
+            <div>
+                <p>Kelembapan Tertinggi</p>
+                <h2 id="historyMaxHumidity">—</h2>
+                <span>Dari hasil pencarian</span>
+            </div>
+        </article>
+    </section>
+
+    <section class="history-panel">
+        <div class="history-panel-header">
+            <div>
+                <h2>Data Pembacaan Sensor</h2>
+                <p>Gunakan pencarian dan filter untuk menemukan data tertentu.</p>
+            </div>
+
+            <span class="history-live-indicator">
+                <span class="live-dot"></span>
+                Pembaruan otomatis
+            </span>
+        </div>
+
+        <div class="history-filters">
+            <label class="history-search">
+                <span aria-hidden="true">⌕</span>
+                <input
+                    type="search"
+                    id="historySearch"
+                    placeholder="Cari tanggal, suhu, kelembapan, relay..."
+                    autocomplete="off"
+                >
+            </label>
+
+            <label class="history-date-filter">
+                <span>Dari tanggal</span>
+                <input type="date" id="historyStartDate">
+            </label>
+
+            <label class="history-date-filter">
+                <span>Sampai tanggal</span>
+                <input type="date" id="historyEndDate">
+            </label>
+
+            <button type="button" id="historyReset" class="reset-button">
+                Reset
+            </button>
+        </div>
+
+        <div class="history-result-info">
+            <span id="historyResultCount">Memuat data...</span>
+            <span id="historyLastUpdate"></span>
+        </div>
+
+        <div class="table-container">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Waktu Pembacaan</th>
+                        <th>Suhu</th>
+                        <th>Kelembapan</th>
+                        <th>Mode</th>
+                        <th>Status Relay</th>
+                    </tr>
+                </thead>
+
+                <tbody id="historyTableBody">
+                    <tr>
+                        <td colspan="6" class="history-message">
+                            Memuat riwayat sensor...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="history-footer">
+            <span>Menampilkan maksimal 100 pembacaan terbaru dari API.</span>
+            <button type="button" id="historyRefresh" class="refresh-button">
+                ↻ Muat Ulang
+            </button>
+        </footer>
+    </section>
+</section>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

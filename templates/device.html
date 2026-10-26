@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Perangkat - IoT DHT11
+{% endblock %}
+
+
+{% block page_title %}
+Perangkat
+{% endblock %}
+
+
+{% block page_description %}
+Informasi dan status ESP32
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="device-grid">
+
+
+    <div class="panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Device Information
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="device-details">
+
+
+            <div class="detail-row">
+
+                <span>
+                    Device Code
+                </span>
+
+                <strong>
+                    ESP32-001
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Device Name
+                </span>
+
+                <strong
+                    id="deviceName"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    IP Address
+                </span>
+
+                <strong
+                    id="ipAddress"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Status
+                </span>
+
+                <strong
+                    id="deviceStatus"
+                >
+                    OFFLINE
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Last Seen
+                </span>
+
+                <strong
+                    id="lastSeen"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Hardware
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="hardware-list">
+
+
+            <div class="hardware-item">
+
+                <span>
+                    ESP32
+                </span>
+
+                <strong>
+                    🟢
+                </strong>
+
+            </div>
+
+
+            <div class="hardware-item">
+
+                <span>
+                    DHT11
+                </span>
+
+                <strong>
+                    🟢
+                </strong>
+
+            </div>
+
+
+            <div class="hardware-item">
+
+                <span>
+                    Relay
+                </span>
+
+                <strong>
+                    🟢
+                </strong>
+
+            </div>
+
+
+            <div class="hardware-item">
+
+                <span>
+                    Lamp
+                </span>
+
+                <strong>
+                    🟢
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/device.js'
+    ) }}"
+></script>
+
+{% endblock %}

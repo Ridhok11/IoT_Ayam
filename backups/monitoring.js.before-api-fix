@@ -1,0 +1,167 @@
+const MONITORING_DEVICE = "ESP32-001";
+
+let temperatureChart = null;
+let humidityChart = null;
+
+async function loadMonitoringData() {
+    try {
+        const response = await fetch(
+            `/api/v1/devices/${MONITORING_DEVICE}/history?limit=50`
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+            console.error(result.message);
+            return;
+        }
+
+        const data = result.data;
+
+        const labels = data.map(item => {
+            return new Date(item.recorded_at).toLocaleTimeString();
+        });
+
+        const temperatures = data.map(item => item.temperature);
+        const humidity = data.map(item => item.humidity);
+
+        updateTemperatureChart(labels, temperatures);
+        updateHumidityChart(labels, humidity);
+
+        updateMonitoringInfo(data);
+
+    } catch (error) {
+        console.error("Gagal mengambil data monitoring:", error);
+    }
+}
+
+
+function updateTemperatureChart(labels, temperatures) {
+
+    const canvas = document.getElementById("temperatureChart");
+
+    if (!canvas) {
+        return;
+    }
+
+    const ctx = canvas.getContext("2d");
+
+    if (temperatureChart) {
+        temperatureChart.destroy();
+    }
+
+    temperatureChart = new Chart(ctx, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "Temperature (°C)",
+                    data: temperatures,
+                    tension: 0.3,
+                    fill: false
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+}
+
+
+function updateHumidityChart(labels, humidity) {
+
+    const canvas = document.getElementById("humidityChart");
+
+    if (!canvas) {
+        return;
+    }
+
+    const ctx = canvas.getContext("2d");
+
+    if (humidityChart) {
+        humidityChart.destroy();
+    }
+
+    humidityChart = new Chart(ctx, {
+        type: "line",
+
+        data: {
+            labels: labels,
+
+            datasets: [
+                {
+                    label: "Humidity (%)",
+                    data: humidity,
+                    tension: 0.3,
+                    fill: false
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+}
+
+
+function updateMonitoringInfo(data) {
+
+    if (!data || data.length === 0) {
+        return;
+    }
+
+    const latest = data[data.length - 1];
+
+    const temperatureElement =
+        document.getElementById("monitorTemperature");
+
+    const humidityElement =
+        document.getElementById("monitorHumidity");
+
+    const relayElement =
+        document.getElementById("monitorRelay");
+
+    if (temperatureElement) {
+        temperatureElement.textContent =
+            `${latest.temperature} °C`;
+    }
+
+    if (humidityElement) {
+        humidityElement.textContent =
+            `${latest.humidity} %`;
+    }
+
+    if (relayElement) {
+        relayElement.textContent =
+            latest.relay_state ? "ON" : "OFF";
+    }
+}
+
+
+// Jalankan pertama kali
+loadMonitoringData();
+
+
+// Update setiap 10 detik
+setInterval(loadMonitoringData, 10000);

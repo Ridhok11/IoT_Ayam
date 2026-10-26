@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block css %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/history.css') }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>History</h1>
+
+    <p>
+        Riwayat data sensor ESP32.
+    </p>
+
+</div>
+
+
+<div class="history-panel">
+
+    <div class="history-header">
+
+        <h2>Sensor History</h2>
+
+        <button
+            class="export-button"
+            onclick="exportCSV()"
+        >
+            Export CSV
+        </button>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table class="history-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Waktu</th>
+
+                    <th>Temperature</th>
+
+                    <th>Humidity</th>
+
+                    <th>Mode</th>
+
+                    <th>Relay</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="historyTableBody">
+
+                <tr>
+
+                    <td colspan="5">
+                        Loading...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+
+{% endblock %}

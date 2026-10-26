@@ -1,0 +1,183 @@
+const HISTORY_DEVICE = "ESP32-001";
+
+let historyData = [];
+
+
+async function loadHistory() {
+
+    try {
+
+        const response = await fetch(
+            `/api/v1/devices/${HISTORY_DEVICE}/history?limit=100`
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+
+            console.error(result.message);
+
+            return;
+        }
+
+        historyData = result.data;
+
+        renderHistory(historyData);
+
+    } catch (error) {
+
+        console.error(
+            "Gagal mengambil history:",
+            error
+        );
+    }
+}
+
+
+function renderHistory(data) {
+
+    const tbody =
+        document.getElementById("historyTableBody");
+
+    if (!tbody) {
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+
+    if (data.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    Belum ada data.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    // Data terbaru di atas
+    const reversed =
+        [...data].reverse();
+
+
+    reversed.forEach(item => {
+
+        const row =
+            document.createElement("tr");
+
+
+        const date =
+            new Date(
+                item.recorded_at
+            ).toLocaleString();
+
+
+        const relay =
+            item.relay_state
+                ? "ON"
+                : "OFF";
+
+
+        const relayClass =
+            item.relay_state
+                ? "status-on"
+                : "status-off";
+
+
+        row.innerHTML = `
+
+            <td>${date}</td>
+
+            <td>
+                ${item.temperature} °C
+            </td>
+
+            <td>
+                ${item.humidity} %
+            </td>
+
+            <td>
+                ${item.mode}
+            </td>
+
+            <td class="${relayClass}">
+                ${relay}
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+}
+
+
+function exportCSV() {
+
+    if (historyData.length === 0) {
+
+        alert("Tidak ada data untuk diekspor.");
+
+        return;
+    }
+
+
+    let csv =
+        "Tanggal,Temperature,Humidity,Mode,Relay\n";
+
+
+    [...historyData].reverse().forEach(item => {
+
+        csv +=
+            `"${item.recorded_at}",` +
+            `"${item.temperature}",` +
+            `"${item.humidity}",` +
+            `"${item.mode}",` +
+            `"${item.relay_state ? "ON" : "OFF"}"\n`;
+
+    });
+
+
+    const blob =
+        new Blob(
+            [csv],
+            {
+                type: "text/csv;charset=utf-8;"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download =
+        "sensor_history.csv";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    loadHistory
+);

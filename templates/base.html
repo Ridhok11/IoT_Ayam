@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#111827">
+    <meta name="description" content="Dashboard monitoring suhu dan kelembapan IoT DHT11">
+
+    <title>{% block title %}IoT DHT11{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-chicken.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">🌡️</div>
+
+            <div class="brand-text">
+                <strong>IoT Control</strong>
+                <span>DHT11 Monitoring System</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section-label">MENU UTAMA</div>
+
+        <nav class="sidebar-menu" aria-label="Navigasi utama">
+
+            <a
+                href="{{ url_for('web.dashboard') }}"
+                class="{% if active_page == 'dashboard' %}active{% endif %}"
+                {% if active_page == 'dashboard' %}aria-current="page"{% endif %}
+            >
+                <span class="menu-icon">🏠</span>
+                <span class="menu-label">Dashboard</span>
+            </a>
+
+            <a
+                href="{{ url_for('web.monitoring') }}"
+                class="{% if active_page == 'monitoring' %}active{% endif %}"
+                {% if active_page == 'monitoring' %}aria-current="page"{% endif %}
+            >
+                <span class="menu-icon">📊</span>
+                <span class="menu-label">Monitoring</span>
+            </a>
+
+            <a
+                href="{{ url_for('web.settings') }}"
+                class="{% if active_page == 'settings' %}active{% endif %}"
+                {% if active_page == 'settings' %}aria-current="page"{% endif %}
+            >
+                <span class="menu-icon">⚙️</span>
+                <span class="menu-label">Pengaturan</span>
+            </a>
+
+            <a
+                href="{{ url_for('web.history_page') }}"
+                class="{% if active_page == 'history' %}active{% endif %}"
+                {% if active_page == 'history' %}aria-current="page"{% endif %}
+            >
+                <span class="menu-icon">📜</span>
+                <span class="menu-label">Riwayat Data</span>
+            </a>
+
+            <a
+                href="{{ url_for('web.device_page') }}"
+                class="{% if active_page == 'device' %}active{% endif %}"
+                {% if active_page == 'device' %}aria-current="page"{% endif %}
+            >
+                <span class="menu-icon">📡</span>
+                <span class="menu-label">Perangkat</span>
+            </a>
+
+            <div class="menu-divider"></div>
+
+            <div class="sidebar-section-label">INFORMASI</div>
+
+            <a
+                href="{{ url_for('web.about_page') }}"
+                class="{% if active_page == 'about' %}active{% endif %}"
+                {% if active_page == 'about' %}aria-current="page"{% endif %}
+            >
+                <span class="menu-icon">ℹ️</span>
+                <span class="menu-label">Tentang Sistem</span>
+            </a>
+
+        </nav>
+
+        <!-- STATUS PERANGKAT -->
+        <div class="sidebar-footer">
+
+            <div class="sidebar-device-card">
+
+                <div class="sidebar-device-heading">
+                    <span
+                        id="sidebarStatusDot"
+                        class="status-dot offline"
+                    ></span>
+
+                    <span id="sidebarStatusText">Memeriksa perangkat...</span>
+                </div>
+
+                <div class="sidebar-device-info">
+                    <span>Perangkat aktif</span>
+                    <strong>ESP32-001</strong>
+                </div>
+
+            </div>
+
+            <div class="sidebar-version">
+                IoT DHT11 Monitoring
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- AREA UTAMA -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="page-heading">
+
+                <div class="breadcrumb">
+                    <span>IoT Control</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span>
+                        {% block breadcrumb %}
+                        Dashboard
+                        {% endblock %}
+                    </span>
+                </div>
+
+                <h1>
+                    {% block page_title %}
+                    IoT Dashboard
+                    {% endblock %}
+                </h1>
+
+                <p>
+                    {% block page_description %}
+                    Monitoring suhu, kelembapan, dan kontrol perangkat.
+                    {% endblock %}
+                </p>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <!-- STATUS SISTEM -->
+                <div class="system-status" id="systemStatus">
+
+                    <span class="status-dot offline"></span>
+
+                    <span>Memeriksa sistem...</span>
+
+                </div>
+
+                <!-- PROFIL -->
+                <div class="user-profile">
+
+                    <div class="user-avatar">A</div>
+
+                    <div class="user-details">
+                        <strong>Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- KONTEN HALAMAN -->
+        <section class="content">
+
+            {% block content %}
+            {% endblock %}
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="main-footer">
+
+            <span>IoT DHT11 Monitoring System</span>
+
+            <span>ESP32 &middot; Sensor DHT11</span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT UTAMA: DIMUAT SATU KALI -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+{% block javascript %}
+{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/theme-toggle.js') }}"></script>
+</body>
+</html>

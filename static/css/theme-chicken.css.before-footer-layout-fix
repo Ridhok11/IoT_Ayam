@@ -1,0 +1,1438 @@
+/* ======================================================
+   SMART POULTRY HOUSE
+   Modern Farm Dashboard — Light & Dark Theme
+   Frontend only. Backend tidak diubah.
+====================================================== */
+
+:root {
+    color-scheme: light;
+
+    --farm-bg: #f6f7ef;
+    --farm-surface: #ffffff;
+    --farm-surface-alt: #f0f5e9;
+    --farm-text: #233629;
+    --farm-muted: #748174;
+    --farm-border: #e2e9dc;
+
+    --farm-green: #34764b;
+    --farm-green-dark: #245638;
+    --farm-green-soft: #e5f2e5;
+
+    --farm-yellow: #f3c95b;
+    --farm-yellow-soft: #fff5d7;
+
+    --farm-red: #cf5650;
+    --farm-blue: #4c83bd;
+
+    --farm-radius: 18px;
+    --farm-shadow: 0 8px 28px rgba(39, 67, 43, .07);
+}
+
+/* ---------- GLOBAL ---------- */
+
+html {
+    background: var(--farm-bg);
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--farm-text) !important;
+    background: var(--farm-bg) !important;
+    transition: background .25s ease, color .25s ease;
+}
+
+::selection {
+    color: #ffffff;
+    background: var(--farm-green);
+}
+
+a {
+    transition: color .2s ease, background .2s ease;
+}
+
+button,
+input,
+select,
+textarea {
+    border-radius: 10px;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+.sidebar {
+    color: #edf5e9 !important;
+    background:
+        radial-gradient(ellipse at top left, #315f3d 0%, transparent 48%),
+        linear-gradient(180deg, #1d3828 0%, #14281d 100%) !important;
+    border-right: 1px solid rgba(255,255,255,.07) !important;
+    box-shadow: 8px 0 30px rgba(25, 45, 29, .07);
+}
+
+.brand {
+    min-height: 100px;
+    border-bottom-color: rgba(255,255,255,.1) !important;
+}
+
+.brand-icon {
+    background: linear-gradient(135deg, #f4d36f, #e7ad3e) !important;
+    box-shadow: 0 6px 18px rgba(231,173,62,.2) !important;
+}
+
+.brand-text strong {
+    color: #ffffff !important;
+    letter-spacing: -.4px;
+}
+
+.brand-text span {
+    color: #b8cbb9 !important;
+}
+
+.sidebar-section-label {
+    color: #9db49e !important;
+    letter-spacing: 1.4px;
+}
+
+.sidebar-menu a {
+    margin: 2px 0;
+    border-radius: 12px;
+    color: #c8d8c9 !important;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.sidebar-menu a:hover {
+    color: #ffffff !important;
+    background: rgba(255,255,255,.08) !important;
+    transform: translateX(2px);
+}
+
+.sidebar-menu a.active {
+    color: #ffffff !important;
+    background: linear-gradient(100deg, #39794c, #2d6740) !important;
+    box-shadow: inset 3px 0 #f4d36f, 0 5px 14px rgba(0,0,0,.1);
+}
+
+.menu-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 25px;
+}
+
+.menu-divider {
+    border-color: rgba(255,255,255,.1) !important;
+}
+
+.sidebar-device-card {
+    background: rgba(255,255,255,.055) !important;
+    border: 1px solid rgba(255,255,255,.11) !important;
+    border-radius: 14px !important;
+}
+
+.sidebar-version {
+    color: #9db49e !important;
+}
+
+/* ---------- TOP BAR ---------- */
+
+.topbar {
+    background: var(--farm-surface) !important;
+    border-bottom: 1px solid var(--farm-border) !important;
+}
+
+.breadcrumb {
+    color: var(--farm-muted) !important;
+}
+
+.breadcrumb-separator {
+    color: #a6b3a2 !important;
+}
+
+.page-heading h1,
+.topbar h1 {
+    color: var(--farm-text) !important;
+    letter-spacing: -.8px;
+}
+
+.page-heading p,
+.topbar p {
+    color: var(--farm-muted) !important;
+}
+
+.system-status,
+.user-profile {
+    border-color: var(--farm-border) !important;
+}
+
+.user-avatar {
+    color: #ffffff !important;
+    background: var(--farm-green) !important;
+}
+
+/* ---------- PAGE BACKGROUND ---------- */
+
+.main-content {
+    background: var(--farm-bg) !important;
+}
+
+.content {
+    position: relative;
+    isolation: isolate;
+}
+
+.content::before {
+    position: absolute;
+    top: 10px;
+    right: 24px;
+    z-index: -1;
+    content: "🌿";
+    font-size: 42px;
+    opacity: .13;
+    pointer-events: none;
+}
+
+/* ---------- DASHBOARD SENSOR CARDS ---------- */
+
+.dashboard-grid {
+    gap: 18px !important;
+}
+
+.sensor-card {
+    position: relative;
+    overflow: hidden;
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border: 1px solid var(--farm-border) !important;
+    border-radius: var(--farm-radius) !important;
+    box-shadow: var(--farm-shadow) !important;
+    transition: transform .2s ease, box-shadow .2s ease !important;
+}
+
+.sensor-card::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 76px;
+    height: 76px;
+    content: "";
+    background: var(--farm-green-soft);
+    border-radius: 0 0 0 76px;
+    opacity: .65;
+    pointer-events: none;
+}
+
+.sensor-card::after {
+    height: 4px !important;
+    background: var(--farm-green) !important;
+}
+
+.sensor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(39,67,43,.12) !important;
+}
+
+.sensor-card-header {
+    position: relative;
+    z-index: 1;
+    color: var(--farm-muted) !important;
+    font-weight: 650 !important;
+}
+
+.sensor-icon {
+    position: relative;
+    z-index: 1;
+    border-radius: 14px !important;
+}
+
+.sensor-icon.temperature {
+    background: #fce8df !important;
+}
+
+.sensor-icon.humidity {
+    background: #dfeefb !important;
+}
+
+.sensor-icon.relay {
+    background: var(--farm-yellow-soft) !important;
+}
+
+.sensor-icon.mode {
+    background: var(--farm-green-soft) !important;
+}
+
+.sensor-value {
+    position: relative;
+    z-index: 1;
+    color: var(--farm-text) !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.sensor-value small {
+    color: var(--farm-muted) !important;
+}
+
+.sensor-footer {
+    position: relative;
+    z-index: 1;
+    color: var(--farm-muted) !important;
+}
+
+/* ---------- PANELS AND CHART ---------- */
+
+.panel,
+.card,
+.stat-card,
+.content-card,
+.dashboard-card,
+.status-card,
+.table-container,
+.modal-content,
+.dropdown-menu {
+    color: var(--farm-text);
+    background: var(--farm-surface);
+    border: 1px solid var(--farm-border);
+    border-radius: var(--farm-radius);
+    box-shadow: var(--farm-shadow);
+}
+
+.panel {
+    padding: 24px;
+}
+
+.panel-header h2,
+.panel h2,
+.panel h3 {
+    color: var(--farm-text) !important;
+}
+
+.panel-header p,
+.panel p {
+    color: var(--farm-muted);
+}
+
+.live-badge {
+    color: var(--farm-green-dark) !important;
+    background: var(--farm-green-soft) !important;
+    border: 1px solid #d3e7d0;
+    border-radius: 30px !important;
+}
+
+.chart-container {
+    border-radius: 12px;
+}
+
+/* ---------- TABLES ---------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: var(--farm-green-dark);
+    background: var(--farm-surface-alt);
+    font-weight: 700;
+}
+
+th,
+td {
+    border-color: var(--farm-border) !important;
+}
+
+tbody tr {
+    transition: background .15s ease;
+}
+
+tbody tr:hover {
+    background: var(--farm-surface-alt);
+}
+
+/* ---------- FORMS ---------- */
+
+input,
+select,
+textarea {
+    max-width: 100%;
+    color: var(--farm-text);
+    background: var(--farm-surface);
+    border: 1px solid var(--farm-border);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--farm-green);
+    box-shadow: 0 0 0 3px rgba(52,118,75,.13);
+}
+
+button,
+.btn,
+button[type="submit"],
+input[type="submit"] {
+    transition: transform .15s ease, filter .15s ease;
+}
+
+button:hover,
+.btn:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+    filter: brightness(.97);
+}
+
+button:active,
+.btn:active {
+    transform: scale(.98);
+}
+
+/* ---------- FOOTER ---------- */
+
+.main-footer {
+    color: var(--farm-muted) !important;
+    border-top: 1px solid var(--farm-border) !important;
+}
+
+/* ---------- THEME TOGGLE ---------- */
+
+.theme-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: calc(100% - 24px);
+    min-height: 44px;
+    margin: 12px;
+    padding: 10px 12px;
+    color: #f1f7ed !important;
+    background: rgba(255,255,255,.07) !important;
+    border: 1px solid rgba(255,255,255,.16) !important;
+    border-radius: 12px !important;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background: rgba(255,255,255,.13) !important;
+}
+
+.theme-toggle-label {
+    font-weight: 700;
+}
+
+.theme-toggle-state {
+    color: #d5e4d4;
+    font-size: 12px;
+}
+
+/* ---------- DARK THEME ---------- */
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --farm-bg: #111a15;
+    --farm-surface: #1a2720;
+    --farm-surface-alt: #223329;
+    --farm-text: #edf4e9;
+    --farm-muted: #a7b7a7;
+    --farm-border: #304337;
+
+    --farm-green: #70bb7c;
+    --farm-green-dark: #a8d7a9;
+    --farm-green-soft: #263f2d;
+
+    --farm-yellow: #f3ce72;
+    --farm-yellow-soft: #443a22;
+
+    --farm-shadow: 0 8px 28px rgba(0,0,0,.16);
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-content {
+    color: var(--farm-text) !important;
+    background: var(--farm-bg) !important;
+}
+
+html[data-theme="dark"] .topbar,
+html[data-theme="dark"] .sensor-card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .content-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .status-card,
+html[data-theme="dark"] .table-container,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .dropdown-menu {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+    box-shadow: var(--farm-shadow) !important;
+}
+
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .topbar h1,
+html[data-theme="dark"] .sensor-value,
+html[data-theme="dark"] .panel-header h2,
+html[data-theme="dark"] .panel h2,
+html[data-theme="dark"] .panel h3,
+html[data-theme="dark"] label,
+html[data-theme="dark"] td {
+    color: var(--farm-text) !important;
+}
+
+html[data-theme="dark"] .page-heading p,
+html[data-theme="dark"] .topbar p,
+html[data-theme="dark"] .panel p,
+html[data-theme="dark"] .sensor-card-header,
+html[data-theme="dark"] .sensor-footer,
+html[data-theme="dark"] .sensor-value small {
+    color: var(--farm-muted) !important;
+}
+
+html[data-theme="dark"] .sensor-icon.temperature {
+    background: #4b302a !important;
+}
+
+html[data-theme="dark"] .sensor-icon.humidity {
+    background: #253c50 !important;
+}
+
+html[data-theme="dark"] .sensor-icon.relay {
+    background: var(--farm-yellow-soft) !important;
+}
+
+html[data-theme="dark"] .sensor-icon.mode {
+    background: var(--farm-green-soft) !important;
+}
+
+html[data-theme="dark"] .live-badge {
+    color: #b8e8bc !important;
+    background: #263f2d !important;
+    border-color: #3c5b40 !important;
+}
+
+html[data-theme="dark"] th {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface-alt) !important;
+}
+
+html[data-theme="dark"] tbody tr:hover {
+    background: var(--farm-surface-alt) !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    color: var(--farm-text) !important;
+    background: #111c15 !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #829586;
+}
+
+html[data-theme="dark"] .system-status,
+html[data-theme="dark"] .user-profile {
+    color: var(--farm-text);
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .main-footer {
+    color: var(--farm-muted) !important;
+    border-color: var(--farm-border) !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+    .content {
+        padding: 22px 18px;
+    }
+
+    .dashboard-grid {
+        gap: 14px !important;
+    }
+
+    .panel {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .content {
+        padding: 16px 12px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 14px !important;
+    }
+
+    .sensor-card {
+        padding: 20px !important;
+    }
+
+    .panel {
+        padding: 16px !important;
+        border-radius: 15px !important;
+    }
+
+    .content::before {
+        right: 10px;
+        font-size: 30px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE SIDEBAR AND THEME BUTTON
+   ========================================== */
+
+/* Pastikan ukuran elemen mengikuti lebar yang tersedia */
+html,
+body {
+    max-width: 100%;
+}
+
+.main-content {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.main-content > * {
+    min-width: 0;
+}
+
+/* Tombol tema untuk desktop */
+.sidebar .theme-toggle {
+    box-sizing: border-box;
+    width: calc(100% - 20px);
+    max-width: 100%;
+    min-width: 0;
+    margin: 12px 10px 8px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 14px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.sidebar .theme-toggle-label,
+.sidebar .theme-toggle-state {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* Laptop dengan layar terbagi atau jendela sempit */
+@media (max-width: 1000px) {
+    :root {
+        --sidebar-width: 68px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+        overflow-x: hidden;
+    }
+
+    .sidebar .brand {
+        justify-content: center;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .sidebar .brand-text,
+    .sidebar .sidebar-section-label,
+    .sidebar .sidebar-menu a .menu-label,
+    .sidebar .sidebar-device-info,
+    .sidebar .sidebar-version {
+        display: none !important;
+    }
+
+    .sidebar .sidebar-menu {
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+
+    .sidebar .sidebar-menu a {
+        justify-content: center;
+        gap: 0;
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+
+    .sidebar .sidebar-menu a .menu-icon {
+        margin: 0;
+    }
+
+    .sidebar .sidebar-footer {
+        min-width: 0;
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+
+    .sidebar .sidebar-device-card {
+        justify-content: center;
+        min-width: 0;
+        padding: 8px 0;
+    }
+
+    .sidebar .sidebar-device-heading {
+        justify-content: center;
+    }
+
+    .sidebar .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        min-height: 42px;
+        margin: 10px auto;
+        padding: 0;
+        border-radius: 12px;
+    }
+
+    .sidebar .theme-toggle-label {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        font-size: 0;
+        line-height: 1;
+    }
+
+    .sidebar .theme-toggle-label::before {
+        content: "☀️";
+        font-size: 20px;
+    }
+
+    html[data-theme="dark"] .sidebar .theme-toggle-label::before {
+        content: "🌙";
+    }
+
+    .sidebar .theme-toggle-state {
+        display: none !important;
+    }
+
+    .main-content {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* HP */
+@media (max-width: 600px) {
+    :root {
+        --sidebar-width: 56px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+    }
+
+    .sidebar .brand {
+        min-height: 70px;
+        padding: 8px 3px;
+    }
+
+    .sidebar .brand-icon {
+        width: 38px;
+        height: 38px;
+        margin: 0 auto;
+        font-size: 20px;
+    }
+
+    .sidebar .sidebar-menu {
+        padding: 8px 5px;
+    }
+
+    .sidebar .sidebar-menu a {
+        min-height: 43px;
+        margin-bottom: 6px;
+        padding: 6px 2px;
+        border-radius: 10px;
+    }
+
+    .sidebar .sidebar-menu a .menu-icon {
+        font-size: 18px;
+    }
+
+    .sidebar .sidebar-footer {
+        padding: 4px;
+    }
+
+    .sidebar .sidebar-device-card {
+        padding: 5px 0;
+        border-radius: 12px;
+    }
+
+    .sidebar .theme-toggle {
+        width: 38px;
+        height: 38px;
+        min-height: 38px;
+        margin: 8px auto;
+        border-radius: 11px;
+    }
+
+    .sidebar .theme-toggle-label::before {
+        font-size: 18px;
+    }
+
+    .main-content {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .main-content .topbar {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .main-content .page-content {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* HP sangat kecil */
+@media (max-width: 360px) {
+    :root {
+        --sidebar-width: 50px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+    }
+
+    .sidebar .brand-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+    }
+
+    .sidebar .sidebar-menu {
+        padding-right: 3px;
+        padding-left: 3px;
+    }
+
+    .sidebar .sidebar-menu a .menu-icon {
+        font-size: 16px;
+    }
+
+    .sidebar .theme-toggle {
+        width: 34px;
+        height: 34px;
+        min-height: 34px;
+    }
+
+    .main-content {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+}
+
+/* FIX: tombol tema tetap terlihat di layar HP */
+@media (max-width: 600px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        height: 100vh;
+        height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar .sidebar-footer {
+        margin-top: auto;
+        flex-shrink: 0;
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    .sidebar .theme-toggle {
+        position: sticky;
+        bottom: 8px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin: 8px auto;
+    }
+}
+
+/* ==========================================
+   THEME COLOR FIX — ALL PAGES
+   ========================================== */
+
+/* Warna dasar halaman */
+html[data-theme="light"] {
+    color-scheme: light;
+    --farm-bg: #f4f7fb;
+    --farm-surface: #ffffff;
+    --farm-surface-alt: #edf3f9;
+    --farm-text: #243449;
+    --farm-muted: #687a90;
+    --farm-border: #dce5ef;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --farm-bg: #101923;
+    --farm-surface: #192533;
+    --farm-surface-alt: #223243;
+    --farm-text: #edf4fc;
+    --farm-muted: #b1c0d1;
+    --farm-border: #35475a;
+    --farm-green: #78c98b;
+    --farm-green-dark: #a9e2b5;
+    --farm-green-soft: #263f35;
+    --farm-yellow-soft: #453b27;
+    --farm-shadow: 0 8px 28px rgba(0, 0, 0, .22);
+}
+
+/* Latar halaman dan konten */
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] .page-content {
+    color: var(--farm-text) !important;
+    background: var(--farm-bg) !important;
+}
+
+/* Panel, kartu, tabel, dan kontainer */
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .content-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .status-card,
+html[data-theme="dark"] .table-container,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .dropdown-menu,
+html[data-theme="dark"] .sensor-card,
+html[data-theme="dark"] .dashboard-page .panel,
+html[data-theme="dark"] .history-card,
+html[data-theme="dark"] .monitoring-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .device-card {
+    color: var(--farm-text) !important;
+    background-color: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+    box-shadow: var(--farm-shadow);
+}
+
+/* Judul dan teks utama */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] .page-heading,
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .topbar h1,
+html[data-theme="dark"] .panel-header h2,
+html[data-theme="dark"] .panel-header h3,
+html[data-theme="dark"] .panel h2,
+html[data-theme="dark"] .panel h3,
+html[data-theme="dark"] .sensor-value,
+html[data-theme="dark"] .status-item strong,
+html[data-theme="dark"] .status-item > span:last-child,
+html[data-theme="dark"] .form-label,
+html[data-theme="dark"] label,
+html[data-theme="dark"] td,
+html[data-theme="dark"] .dropdown-menu a,
+html[data-theme="dark"] .dropdown-menu button {
+    color: var(--farm-text) !important;
+}
+
+/* Teks penjelas dan teks sekunder */
+html[data-theme="dark"] p,
+html[data-theme="dark"] .page-heading p,
+html[data-theme="dark"] .topbar p,
+html[data-theme="dark"] .panel p,
+html[data-theme="dark"] .panel-subtitle,
+html[data-theme="dark"] .sensor-card-label,
+html[data-theme="dark"] .sensor-card-footer,
+html[data-theme="dark"] .sensor-footer,
+html[data-theme="dark"] .sensor-value small,
+html[data-theme="dark"] .status-item > span:first-child,
+html[data-theme="dark"] .help-text,
+html[data-theme="dark"] .form-text,
+html[data-theme="dark"] small {
+    color: var(--farm-muted);
+}
+
+/* Tabel */
+html[data-theme="dark"] table {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] thead,
+html[data-theme="dark"] th {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface-alt) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] tbody tr,
+html[data-theme="dark"] tbody td {
+    color: var(--farm-text) !important;
+    background-color: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] tbody tr:hover,
+html[data-theme="dark"] tbody tr:hover td {
+    background-color: var(--farm-surface-alt) !important;
+}
+
+/* Formulir dan pilihan */
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    color: var(--farm-text) !important;
+    background-color: #14202d !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #a2b2c4 !important;
+    opacity: 1;
+}
+
+html[data-theme="dark"] select option {
+    color: var(--farm-text);
+    background-color: var(--farm-surface);
+}
+
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
+    border-color: #76a9ed !important;
+    outline: 2px solid rgba(118, 169, 237, .2);
+}
+
+/* Elemen dengan warna latar yang sebelumnya hard-coded */
+html[data-theme="dark"] .topbar {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .system-status,
+html[data-theme="dark"] .user-profile {
+    color: var(--farm-text) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .main-footer {
+    color: var(--farm-muted) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .dashboard-note {
+    color: var(--farm-muted) !important;
+    background: var(--farm-surface-alt) !important;
+    border-color: var(--farm-border) !important;
+}
+
+/* Link dan dropdown */
+html[data-theme="dark"] a:not(.sidebar-menu a):not(.btn) {
+    color: #9fc8ff;
+}
+
+html[data-theme="dark"] a:not(.sidebar-menu a):not(.btn):hover {
+    color: #c3dcff;
+}
+
+/* Pastikan teks tombol tetap terbaca */
+html[data-theme="dark"] button,
+html[data-theme="dark"] .btn {
+    text-shadow: none;
+}
+
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .btn-success,
+html[data-theme="dark"] .btn-danger,
+html[data-theme="dark"] .sidebar-menu a.active {
+    color: #ffffff !important;
+}
+
+/* Teks sidebar tetap kontras */
+html[data-theme="dark"] .sidebar {
+    color: #edf4fc;
+}
+
+html[data-theme="dark"] .sidebar .brand-text strong,
+html[data-theme="dark"] .sidebar .sidebar-menu a,
+html[data-theme="dark"] .sidebar .sidebar-device-heading {
+    color: #edf4fc;
+}
+
+/* Batas dan garis pemisah */
+html[data-theme="dark"] hr {
+    border-color: var(--farm-border);
+}
+
+html[data-theme="dark"] .panel-header,
+html[data-theme="dark"] .status-item {
+    border-color: var(--farm-border) !important;
+}
+
+/* ==========================================
+   FIX LAYOUT: MONITORING, SETTINGS, HISTORY,
+   DAN DEVICE
+========================================== */
+
+/* Ukuran elemen dihitung bersama padding dan border */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Izinkan item grid dan flex mengecil dengan benar */
+.monitoring-grid > *,
+.monitoring-info > *,
+.settings-container > *,
+.settings-panel,
+.threshold-grid > *,
+.device-grid > *,
+.device-grid > *,
+.history-panel,
+.history-header,
+.chart-panel,
+.info-card,
+.panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Jarak dan ukuran teks yang konsisten */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.page-header p {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.chart-panel,
+.info-card,
+.settings-panel,
+.history-panel,
+.device-panel,
+.panel {
+    height: auto;
+    line-height: 1.6;
+}
+
+.chart-panel h2,
+.info-card h3,
+.settings-panel h2,
+.history-header h2,
+.panel h2,
+.panel h3 {
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.chart-panel p,
+.info-card p,
+.settings-panel p,
+.mode-info,
+.form-group label,
+.device-item,
+.detail-row,
+.hardware-item {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Monitoring */
+.monitoring-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.monitoring-info {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.chart-panel,
+.info-card {
+    padding: 20px;
+}
+
+.chart-container {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.info-value {
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+/* Settings */
+.settings-container {
+    width: 100%;
+    min-width: 0;
+}
+
+.settings-panel {
+    width: 100%;
+    padding: 24px;
+}
+
+.threshold-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.settings-panel input:not([type="checkbox"]):not([type="radio"]),
+.settings-panel select,
+.settings-panel textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.btn-group {
+    align-items: center;
+}
+
+.btn-group button,
+.settings-panel button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* History */
+.history-panel {
+    width: 100%;
+    min-width: 0;
+}
+
+.history-header {
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.history-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+    line-height: 1.5;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+/* Device */
+.device-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.device-grid > *,
+.device-grid .panel,
+.device-grid .device-panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.device-grid .panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.device-grid .panel-header > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.device-grid .detail-row,
+.device-grid .hardware-item,
+.device-grid .device-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.device-grid .detail-row strong,
+.device-grid .hardware-item strong,
+.device-grid .device-item strong {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Mode gelap: samakan warna panel halaman */
+html[data-theme="dark"] .chart-panel,
+html[data-theme="dark"] .info-card,
+html[data-theme="dark"] .settings-panel,
+html[data-theme="dark"] .history-panel,
+html[data-theme="dark"] .device-panel,
+html[data-theme="dark"] .device-grid .panel {
+    color: var(--farm-text);
+    background: var(--farm-surface);
+    border-color: var(--farm-border);
+}
+
+/* Mode gelap: warna teks di dalam panel */
+html[data-theme="dark"] .chart-panel h2,
+html[data-theme="dark"] .info-card h3,
+html[data-theme="dark"] .settings-panel h2,
+html[data-theme="dark"] .history-header h2,
+html[data-theme="dark"] .device-grid .panel h2,
+html[data-theme="dark"] .device-grid .panel h3,
+html[data-theme="dark"] .device-grid .detail-row,
+html[data-theme="dark"] .device-grid .hardware-item {
+    color: var(--farm-text);
+}
+
+/* Mode gelap: elemen informasi tambahan */
+html[data-theme="dark"] .mode-info,
+html[data-theme="dark"] .device-item {
+    color: var(--farm-text);
+    background: var(--farm-surface-alt);
+    border-color: var(--farm-border);
+}
+
+/* Tampilan tablet */
+@media (max-width: 900px) {
+    .monitoring-grid,
+    .device-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .monitoring-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .settings-container {
+        max-width: 100%;
+    }
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .monitoring-grid,
+    .monitoring-info,
+    .threshold-grid,
+    .device-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .chart-panel,
+    .info-card,
+    .settings-panel,
+    .history-panel,
+    .device-panel,
+    .device-grid .panel {
+        padding: 16px;
+    }
+
+    .chart-container {
+        height: 260px;
+    }
+
+    .history-header {
+        align-items: flex-start;
+    }
+
+    .history-header > * {
+        max-width: 100%;
+    }
+
+    .history-header button,
+    .history-header a {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-group button,
+    .settings-panel button {
+        min-height: 42px;
+    }
+}
+
+/* =========================================================
+   FOOTER FIX - SEMUA MENU
+========================================================= */
+
+.main-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    padding: 16px 24px;
+    margin-top: 24px;
+
+    box-sizing: border-box;
+    line-height: 1.6;
+    font-size: 12px;
+}
+
+.main-footer span {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .main-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 14px 16px;
+        font-size: 11px;
+    }
+}
+

@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}
+Settings
+{% endblock %}
+
+{% block css %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/settings.css') }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>Settings</h1>
+
+    <p>
+        Pengaturan sistem kontrol ESP32.
+    </p>
+
+</div>
+
+
+<div class="settings-container">
+
+    <div class="settings-panel">
+
+        <h2>Mode Kontrol</h2>
+
+        <div class="form-group">
+
+            <label for="mode">
+                Mode
+            </label>
+
+            <select id="mode">
+
+                <option value="AUTO">
+                    AUTO
+                </option>
+
+                <option value="MANUAL">
+                    MANUAL
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="mode-info">
+
+            <strong>AUTO:</strong>
+
+            Relay dikontrol berdasarkan
+            temperatur.
+
+            <br><br>
+
+            <strong>MANUAL:</strong>
+
+            Relay dikontrol melalui dashboard.
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-panel">
+
+        <h2>Temperature Threshold</h2>
+
+        <div class="threshold-grid">
+
+            <div class="form-group">
+
+                <label for="temperatureOnThreshold">
+
+                    Lamp ON jika suhu di bawah
+
+                </label>
+
+                <input
+                    type="number"
+                    step="0.1"
+                    id="temperatureOnThreshold"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="temperatureOffThreshold">
+
+                    Lamp OFF jika suhu di atas
+
+                </label>
+
+                <input
+                    type="number"
+                    step="0.1"
+                    id="temperatureOffThreshold"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn-save"
+            onclick="saveSettings()"
+        >
+            Simpan Pengaturan
+        </button>
+
+
+        <div
+            id="settingsMessage"
+            class="message"
+        ></div>
+
+    </div>
+
+
+    <div
+        id="manualControl"
+        class="settings-panel"
+        style="display:none;"
+    >
+
+        <h2>Manual Relay Control</h2>
+
+        <p>
+            Gunakan tombol berikut untuk mengontrol lampu.
+        </p>
+
+
+        <div class="btn-group">
+
+            <button
+                class="btn-on"
+                onclick="setRelay(true)"
+            >
+                Lamp ON
+            </button>
+
+
+            <button
+                class="btn-off"
+                onclick="setRelay(false)"
+            >
+                Lamp OFF
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+
+{% endblock %}

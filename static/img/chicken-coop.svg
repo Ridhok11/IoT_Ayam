@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360">
+  <rect width="600" height="360" rx="24" fill="#f1f8e9"/>
+  <circle cx="480" cy="65" r="32" fill="#ffd54f"/>
+  <path d="M0 275 Q130 235 260 275 T600 265 V360 H0Z" fill="#c5e1a5"/>
+  <path d="M75 170 L300 45 L525 170Z" fill="#795548"/>
+  <path d="M105 165 L300 65 L495 165Z" fill="#a1887f"/>
+  <rect x="115" y="165" width="370" height="145" rx="8" fill="#fff8e1" stroke="#8d6e63" stroke-width="5"/>
+  <rect x="145" y="195" width="105" height="80" rx="5" fill="#b3e5fc" stroke="#8d6e63" stroke-width="5"/>
+  <path d="M197 195 V275 M145 235 H250" stroke="#8d6e63" stroke-width="4"/>
+  <rect x="330" y="190" width="105" height="120" rx="5" fill="#8d6e63"/>
+  <path d="M330 190 L382 165 L435 190Z" fill="#6d4c41"/>
+  <circle cx="415" cy="250" r="5" fill="#ffd54f"/>
+  <path d="M70 310 Q85 260 100 310 M55 310 Q65 280 80 310" fill="#66bb6a" stroke="#388e3c" stroke-width="5"/>
+  <path d="M515 310 Q530 255 545 310 M500 310 Q510 280 525 310" fill="#66bb6a" stroke="#388e3c" stroke-width="5"/>
+  <ellipse cx="285" cy="275" rx="47" ry="31" fill="#fffdf5" stroke="#d7ccc8" stroke-width="3"/>
+  <circle cx="319" cy="248" r="25" fill="#fffdf5" stroke="#d7ccc8" stroke-width="3"/>
+  <circle cx="326" cy="244" r="3.5" fill="#263238"/>
+  <path d="M340 249 L356 255 L340 261Z" fill="#ff9800"/>
+  <path d="M300 225 Q289 207 306 211 Q320 213 315 230Z" fill="#e53935"/>
+  <path d="M275 300 L270 318 M300 300 L305 318" stroke="#ff9800" stroke-width="6" stroke-linecap="round"/>
+  <path d="M250 266 Q230 250 239 280" fill="#eeeeee" stroke="#d7ccc8" stroke-width="3"/>
+  <rect x="390" y="92" width="48" height="28" rx="4" fill="#455a64"/>
+  <path d="M414 120 V144" stroke="#455a64" stroke-width="4"/>
+  <circle cx="414" cy="150" r="6" fill="#43a047"/>
+  <path d="M380 92 L390 80 H438 L448 92Z" fill="#78909c"/>
+  <text x="300" y="340" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="#33691e">SMART POULTRY HOUSE</text>
+</svg>

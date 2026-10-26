@@ -1,0 +1,558 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Dashboard - IoT DHT11
+{% endblock %}
+
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+
+{% block page_description %}
+Monitoring kondisi perangkat IoT secara realtime
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sensor-charts.css') }}">
+
+{% block css %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/dashboard.css'
+    ) }}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+
+<!-- SENSOR CARDS -->
+
+<section class="dashboard-intro">
+    <div class="dashboard-intro-content">
+        <span class="dashboard-eyebrow">Smart Poultry House</span>
+        <h2>Monitoring Peternakan Pintar</h2>
+        <p>
+            Pantau suhu, kelembapan, dan status perangkat ESP32 secara terpusat.
+            Data sensor ditampilkan melalui sistem monitoring IoT.
+        </p>
+    </div>
+
+    <img
+        class="dashboard-illustration"
+        src="{{ url_for('static', filename='img/chicken-coop.svg') }}"
+        alt="Ilustrasi ayam dan kandang pintar"
+    >
+</section>
+
+
+<section class="farm-condition-panel" id="farmConditionPanel" aria-live="polite">
+    <div class="farm-condition-heading">
+        <div>
+            <span class="farm-condition-eyebrow">🐔 KONDISI KANDANG</span>
+            <h2 id="farmConditionTitle">Menunggu data sensor</h2>
+            <p id="farmConditionMessage">Menghubungkan ke sistem monitoring...</p>
+        </div>
+        <div class="farm-condition-badge" id="farmConnectionBadge">
+            ⚪ Memeriksa koneksi
+        </div>
+    </div>
+
+    <div class="farm-condition-metrics">
+        <article class="farm-metric">
+            <span class="farm-metric-icon">🌡️</span>
+            <div>
+                <span class="farm-metric-label">Suhu kandang</span>
+                <strong id="farmTemperature">-- °C</strong>
+                <small id="farmTemperatureStatus">Menunggu data</small>
+            </div>
+        </article>
+
+        <article class="farm-metric">
+            <span class="farm-metric-icon">💧</span>
+            <div>
+                <span class="farm-metric-label">Kelembapan udara</span>
+                <strong id="farmHumidity">-- %</strong>
+                <small id="farmHumidityStatus">Menunggu data</small>
+            </div>
+        </article>
+
+        <article class="farm-metric">
+            <span class="farm-metric-icon">💡</span>
+            <div>
+                <span class="farm-metric-label">Relay lampu</span>
+                <strong id="farmRelay">--</strong>
+                <small id="farmRelayStatus">Menunggu data</small>
+            </div>
+        </article>
+    </div>
+
+    <div class="farm-condition-footnote" id="farmLastUpdate">
+        Waktu pembaruan: belum tersedia
+    </div>
+</section>
+
+<!-- GRAFIK SENSOR REAL-TIME -->
+<section class="sensor-chart-section">
+    <div class="chart-heading">
+        <div>
+            <span class="chart-eyebrow">ANALISIS KANDANG</span>
+            <h2>Grafik Kondisi Kandang</h2>
+            <p>Pantau perubahan suhu dan kelembapan dari sensor ESP32.</p>
+        </div>
+        <span class="chart-live-badge">
+            <span class="chart-live-dot"></span>
+            Live Monitoring
+        </span>
+    </div>
+
+    <div class="sensor-chart-grid">
+        <article class="sensor-chart-card">
+            <div class="sensor-chart-header">
+                <div>
+                    <h3>🌡️ Suhu Kandang</h3>
+                    <p>Temperatur udara</p>
+                </div>
+                <div class="chart-current-value">
+                    <strong id="chartTemperatureValue">--</strong>
+                    <span>°C</span>
+                </div>
+            </div>
+            <div class="sensor-chart-canvas">
+                <canvas id="temperatureChart"></canvas>
+            </div>
+        </article>
+
+        <article class="sensor-chart-card">
+            <div class="sensor-chart-header">
+                <div>
+                    <h3>💧 Kelembapan Kandang</h3>
+                    <p>Kelembapan udara</p>
+                </div>
+                <div class="chart-current-value">
+                    <strong id="chartHumidityValue">--</strong>
+                    <span>%</span>
+                </div>
+            </div>
+            <div class="sensor-chart-canvas">
+                <canvas id="humidityChart"></canvas>
+            </div>
+        </article>
+    </div>
+
+    <p class="chart-update-info" id="chartUpdateInfo">
+        Menunggu data sensor...
+    </p>
+</section>
+
+<div class="dashboard-grid">
+
+
+    <!-- TEMPERATURE -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Temperature
+            </span>
+
+            <div class="sensor-icon temperature">
+                🌡️
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="temperature">
+                --
+            </span>
+
+            <small>
+                °C
+            </small>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span id="temperatureStatus">
+                Waiting...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- HUMIDITY -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Humidity
+            </span>
+
+            <div class="sensor-icon humidity">
+                💧
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="humidity">
+                --
+            </span>
+
+            <small>
+                %
+            </small>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span id="humidityStatus">
+                Waiting...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- RELAY -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Relay / Lamp
+            </span>
+
+            <div class="sensor-icon relay">
+                💡
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="relay">
+                OFF
+            </span>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span id="relayStatus">
+                Waiting...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODE -->
+
+    <div class="sensor-card">
+
+        <div class="sensor-card-header">
+
+            <span>
+                Operating Mode
+            </span>
+
+            <div class="sensor-icon mode">
+                ⚙️
+            </div>
+
+        </div>
+
+
+        <div class="sensor-value">
+
+            <span id="mode">
+                AUTO
+            </span>
+
+        </div>
+
+
+        <div class="sensor-footer">
+
+            <span>
+                Temperature control
+            </span>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- MAIN DASHBOARD -->
+
+<div class="dashboard-columns">
+
+
+    <!-- CHART -->
+
+    <div class="panel chart-panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Sensor Monitoring
+                </h2>
+
+                <p>
+                    Temperature & humidity
+                </p>
+
+            </div>
+
+
+            <span class="live-badge">
+                ● LIVE
+            </span>
+
+        </div>
+
+
+        <div class="chart-container">
+
+            <canvas
+                id="sensorChart"
+            ></canvas>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- SYSTEM STATUS -->
+
+    <div class="panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    System Status
+                </h2>
+
+                <p>
+                    Current device information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="status-list">
+
+
+            <div class="status-item">
+
+                <span>
+                    ESP32
+                </span>
+
+                <strong
+                    id="deviceStatus"
+                >
+                    OFFLINE
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    DHT11 Sensor
+                </span>
+
+                <strong
+                    id="sensorStatus"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Relay
+                </span>
+
+                <strong
+                    id="deviceRelay"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Threshold
+                </span>
+
+                <strong>
+
+                    <span id="threshold">
+                        --
+                    </span>
+
+                    °C
+
+                </strong>
+
+            </div>
+
+
+            <div class="status-item">
+
+                <span>
+                    Last Update
+                </span>
+
+                <strong
+                    id="lastUpdate"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- QUICK CONTROL -->
+
+<div class="panel">
+
+
+    <div class="panel-header">
+
+        <div>
+
+            <h2>
+                Quick Control
+            </h2>
+
+            <p>
+                Kontrol perangkat secara manual
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="quick-control">
+
+
+        <div>
+
+            <span>
+                Relay Lampu
+            </span>
+
+            <small>
+                Manual control
+            </small>
+
+        </div>
+
+
+        <div class="control-buttons">
+
+            <button
+                class="btn btn-success"
+                onclick="setRelay(true)"
+            >
+                💡 ON
+            </button>
+
+
+            <button
+                class="btn btn-danger"
+                onclick="setRelay(false)"
+            >
+                ⛔ OFF
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/dashboard.js'
+    ) }}"
+></script>
+
+
+<script src="{{ url_for('static', filename='js/farm-condition.js') }}" defer></script>
+
+{% endblock %}

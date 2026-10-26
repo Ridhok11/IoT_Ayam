@@ -1,0 +1,118 @@
+/* ================================
+   SETTINGS PAGE
+================================ */
+
+.settings-container {
+    max-width: 900px;
+}
+
+.settings-panel {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.settings-panel h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.threshold-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.mode-info {
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.manual-control {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-on,
+.btn-off {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-on {
+    background: #2e7d32;
+    color: white;
+}
+
+.btn-off {
+    background: #c62828;
+    color: white;
+}
+
+.btn-save {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #1976d2;
+    color: white;
+    font-weight: 600;
+}
+
+.message {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+}
+
+.message.success {
+    display: block;
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.message.error {
+    display: block;
+    background: #ffebee;
+    color: #c62828;
+}
+
+@media (max-width: 700px) {
+    .threshold-grid {
+        grid-template-columns: 1fr;
+    }
+}

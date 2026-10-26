@@ -1,0 +1,2565 @@
+/* ======================================================
+   SMART POULTRY HOUSE
+   Modern Farm Dashboard — Light & Dark Theme
+   Frontend only. Backend tidak diubah.
+====================================================== */
+
+:root {
+    color-scheme: light;
+
+    --farm-bg: #f6f7ef;
+    --farm-surface: #ffffff;
+    --farm-surface-alt: #f0f5e9;
+    --farm-text: #233629;
+    --farm-muted: #748174;
+    --farm-border: #e2e9dc;
+
+    --farm-green: #34764b;
+    --farm-green-dark: #245638;
+    --farm-green-soft: #e5f2e5;
+
+    --farm-yellow: #f3c95b;
+    --farm-yellow-soft: #fff5d7;
+
+    --farm-red: #cf5650;
+    --farm-blue: #4c83bd;
+
+    --farm-radius: 18px;
+    --farm-shadow: 0 8px 28px rgba(39, 67, 43, .07);
+}
+
+/* ---------- GLOBAL ---------- */
+
+html {
+    background: var(--farm-bg);
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--farm-text) !important;
+    background: var(--farm-bg) !important;
+    transition: background .25s ease, color .25s ease;
+}
+
+::selection {
+    color: #ffffff;
+    background: var(--farm-green);
+}
+
+a {
+    transition: color .2s ease, background .2s ease;
+}
+
+button,
+input,
+select,
+textarea {
+    border-radius: 10px;
+}
+
+/* ---------- SIDEBAR ---------- */
+
+.sidebar {
+    color: #edf5e9 !important;
+    background:
+        radial-gradient(ellipse at top left, #315f3d 0%, transparent 48%),
+        linear-gradient(180deg, #1d3828 0%, #14281d 100%) !important;
+    border-right: 1px solid rgba(255,255,255,.07) !important;
+    box-shadow: 8px 0 30px rgba(25, 45, 29, .07);
+}
+
+.brand {
+    min-height: 100px;
+    border-bottom-color: rgba(255,255,255,.1) !important;
+}
+
+.brand-icon {
+    background: linear-gradient(135deg, #f4d36f, #e7ad3e) !important;
+    box-shadow: 0 6px 18px rgba(231,173,62,.2) !important;
+}
+
+.brand-text strong {
+    color: #ffffff !important;
+    letter-spacing: -.4px;
+}
+
+.brand-text span {
+    color: #b8cbb9 !important;
+}
+
+.sidebar-section-label {
+    color: #9db49e !important;
+    letter-spacing: 1.4px;
+}
+
+.sidebar-menu a {
+    margin: 2px 0;
+    border-radius: 12px;
+    color: #c8d8c9 !important;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.sidebar-menu a:hover {
+    color: #ffffff !important;
+    background: rgba(255,255,255,.08) !important;
+    transform: translateX(2px);
+}
+
+.sidebar-menu a.active {
+    color: #ffffff !important;
+    background: linear-gradient(100deg, #39794c, #2d6740) !important;
+    box-shadow: inset 3px 0 #f4d36f, 0 5px 14px rgba(0,0,0,.1);
+}
+
+.menu-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 25px;
+}
+
+.menu-divider {
+    border-color: rgba(255,255,255,.1) !important;
+}
+
+.sidebar-device-card {
+    background: rgba(255,255,255,.055) !important;
+    border: 1px solid rgba(255,255,255,.11) !important;
+    border-radius: 14px !important;
+}
+
+.sidebar-version {
+    color: #9db49e !important;
+}
+
+/* ---------- TOP BAR ---------- */
+
+.topbar {
+    background: var(--farm-surface) !important;
+    border-bottom: 1px solid var(--farm-border) !important;
+}
+
+.breadcrumb {
+    color: var(--farm-muted) !important;
+}
+
+.breadcrumb-separator {
+    color: #a6b3a2 !important;
+}
+
+.page-heading h1,
+.topbar h1 {
+    color: var(--farm-text) !important;
+    letter-spacing: -.8px;
+}
+
+.page-heading p,
+.topbar p {
+    color: var(--farm-muted) !important;
+}
+
+.system-status,
+.user-profile {
+    border-color: var(--farm-border) !important;
+}
+
+.user-avatar {
+    color: #ffffff !important;
+    background: var(--farm-green) !important;
+}
+
+/* ---------- PAGE BACKGROUND ---------- */
+
+.main-content {
+    background: var(--farm-bg) !important;
+}
+
+.content {
+    position: relative;
+    isolation: isolate;
+}
+
+.content::before {
+    position: absolute;
+    top: 10px;
+    right: 24px;
+    z-index: -1;
+    content: "🌿";
+    font-size: 42px;
+    opacity: .13;
+    pointer-events: none;
+}
+
+/* ---------- DASHBOARD SENSOR CARDS ---------- */
+
+.dashboard-grid {
+    gap: 18px !important;
+}
+
+.sensor-card {
+    position: relative;
+    overflow: hidden;
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border: 1px solid var(--farm-border) !important;
+    border-radius: var(--farm-radius) !important;
+    box-shadow: var(--farm-shadow) !important;
+    transition: transform .2s ease, box-shadow .2s ease !important;
+}
+
+.sensor-card::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 76px;
+    height: 76px;
+    content: "";
+    background: var(--farm-green-soft);
+    border-radius: 0 0 0 76px;
+    opacity: .65;
+    pointer-events: none;
+}
+
+.sensor-card::after {
+    height: 4px !important;
+    background: var(--farm-green) !important;
+}
+
+.sensor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(39,67,43,.12) !important;
+}
+
+.sensor-card-header {
+    position: relative;
+    z-index: 1;
+    color: var(--farm-muted) !important;
+    font-weight: 650 !important;
+}
+
+.sensor-icon {
+    position: relative;
+    z-index: 1;
+    border-radius: 14px !important;
+}
+
+.sensor-icon.temperature {
+    background: #fce8df !important;
+}
+
+.sensor-icon.humidity {
+    background: #dfeefb !important;
+}
+
+.sensor-icon.relay {
+    background: var(--farm-yellow-soft) !important;
+}
+
+.sensor-icon.mode {
+    background: var(--farm-green-soft) !important;
+}
+
+.sensor-value {
+    position: relative;
+    z-index: 1;
+    color: var(--farm-text) !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.sensor-value small {
+    color: var(--farm-muted) !important;
+}
+
+.sensor-footer {
+    position: relative;
+    z-index: 1;
+    color: var(--farm-muted) !important;
+}
+
+/* ---------- PANELS AND CHART ---------- */
+
+.panel,
+.card,
+.stat-card,
+.content-card,
+.dashboard-card,
+.status-card,
+.table-container,
+.modal-content,
+.dropdown-menu {
+    color: var(--farm-text);
+    background: var(--farm-surface);
+    border: 1px solid var(--farm-border);
+    border-radius: var(--farm-radius);
+    box-shadow: var(--farm-shadow);
+}
+
+.panel {
+    padding: 24px;
+}
+
+.panel-header h2,
+.panel h2,
+.panel h3 {
+    color: var(--farm-text) !important;
+}
+
+.panel-header p,
+.panel p {
+    color: var(--farm-muted);
+}
+
+.live-badge {
+    color: var(--farm-green-dark) !important;
+    background: var(--farm-green-soft) !important;
+    border: 1px solid #d3e7d0;
+    border-radius: 30px !important;
+}
+
+.chart-container {
+    border-radius: 12px;
+}
+
+/* ---------- TABLES ---------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    color: var(--farm-green-dark);
+    background: var(--farm-surface-alt);
+    font-weight: 700;
+}
+
+th,
+td {
+    border-color: var(--farm-border) !important;
+}
+
+tbody tr {
+    transition: background .15s ease;
+}
+
+tbody tr:hover {
+    background: var(--farm-surface-alt);
+}
+
+/* ---------- FORMS ---------- */
+
+input,
+select,
+textarea {
+    max-width: 100%;
+    color: var(--farm-text);
+    background: var(--farm-surface);
+    border: 1px solid var(--farm-border);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--farm-green);
+    box-shadow: 0 0 0 3px rgba(52,118,75,.13);
+}
+
+button,
+.btn,
+button[type="submit"],
+input[type="submit"] {
+    transition: transform .15s ease, filter .15s ease;
+}
+
+button:hover,
+.btn:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+    filter: brightness(.97);
+}
+
+button:active,
+.btn:active {
+    transform: scale(.98);
+}
+
+/* ---------- FOOTER ---------- */
+
+.main-footer {
+    color: var(--farm-muted) !important;
+    border-top: 1px solid var(--farm-border) !important;
+}
+
+/* ---------- THEME TOGGLE ---------- */
+
+.theme-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: calc(100% - 24px);
+    min-height: 44px;
+    margin: 12px;
+    padding: 10px 12px;
+    color: #f1f7ed !important;
+    background: rgba(255,255,255,.07) !important;
+    border: 1px solid rgba(255,255,255,.16) !important;
+    border-radius: 12px !important;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background: rgba(255,255,255,.13) !important;
+}
+
+.theme-toggle-label {
+    font-weight: 700;
+}
+
+.theme-toggle-state {
+    color: #d5e4d4;
+    font-size: 12px;
+}
+
+/* ---------- DARK THEME ---------- */
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    --farm-bg: #111a15;
+    --farm-surface: #1a2720;
+    --farm-surface-alt: #223329;
+    --farm-text: #edf4e9;
+    --farm-muted: #a7b7a7;
+    --farm-border: #304337;
+
+    --farm-green: #70bb7c;
+    --farm-green-dark: #a8d7a9;
+    --farm-green-soft: #263f2d;
+
+    --farm-yellow: #f3ce72;
+    --farm-yellow-soft: #443a22;
+
+    --farm-shadow: 0 8px 28px rgba(0,0,0,.16);
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-content {
+    color: var(--farm-text) !important;
+    background: var(--farm-bg) !important;
+}
+
+html[data-theme="dark"] .topbar,
+html[data-theme="dark"] .sensor-card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .content-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .status-card,
+html[data-theme="dark"] .table-container,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .dropdown-menu {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+    box-shadow: var(--farm-shadow) !important;
+}
+
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .topbar h1,
+html[data-theme="dark"] .sensor-value,
+html[data-theme="dark"] .panel-header h2,
+html[data-theme="dark"] .panel h2,
+html[data-theme="dark"] .panel h3,
+html[data-theme="dark"] label,
+html[data-theme="dark"] td {
+    color: var(--farm-text) !important;
+}
+
+html[data-theme="dark"] .page-heading p,
+html[data-theme="dark"] .topbar p,
+html[data-theme="dark"] .panel p,
+html[data-theme="dark"] .sensor-card-header,
+html[data-theme="dark"] .sensor-footer,
+html[data-theme="dark"] .sensor-value small {
+    color: var(--farm-muted) !important;
+}
+
+html[data-theme="dark"] .sensor-icon.temperature {
+    background: #4b302a !important;
+}
+
+html[data-theme="dark"] .sensor-icon.humidity {
+    background: #253c50 !important;
+}
+
+html[data-theme="dark"] .sensor-icon.relay {
+    background: var(--farm-yellow-soft) !important;
+}
+
+html[data-theme="dark"] .sensor-icon.mode {
+    background: var(--farm-green-soft) !important;
+}
+
+html[data-theme="dark"] .live-badge {
+    color: #b8e8bc !important;
+    background: #263f2d !important;
+    border-color: #3c5b40 !important;
+}
+
+html[data-theme="dark"] th {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface-alt) !important;
+}
+
+html[data-theme="dark"] tbody tr:hover {
+    background: var(--farm-surface-alt) !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    color: var(--farm-text) !important;
+    background: #111c15 !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #829586;
+}
+
+html[data-theme="dark"] .system-status,
+html[data-theme="dark"] .user-profile {
+    color: var(--farm-text);
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .main-footer {
+    color: var(--farm-muted) !important;
+    border-color: var(--farm-border) !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+    .content {
+        padding: 22px 18px;
+    }
+
+    .dashboard-grid {
+        gap: 14px !important;
+    }
+
+    .panel {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .content {
+        padding: 16px 12px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 14px !important;
+    }
+
+    .sensor-card {
+        padding: 20px !important;
+    }
+
+    .panel {
+        padding: 16px !important;
+        border-radius: 15px !important;
+    }
+
+    .content::before {
+        right: 10px;
+        font-size: 30px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE SIDEBAR AND THEME BUTTON
+   ========================================== */
+
+/* Pastikan ukuran elemen mengikuti lebar yang tersedia */
+html,
+body {
+    max-width: 100%;
+}
+
+.main-content {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.main-content > * {
+    min-width: 0;
+}
+
+/* Tombol tema untuk desktop */
+.sidebar .theme-toggle {
+    box-sizing: border-box;
+    width: calc(100% - 20px);
+    max-width: 100%;
+    min-width: 0;
+    margin: 12px 10px 8px;
+    padding: 12px;
+    overflow: hidden;
+    border-radius: 14px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.sidebar .theme-toggle-label,
+.sidebar .theme-toggle-state {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* Laptop dengan layar terbagi atau jendela sempit */
+@media (max-width: 1000px) {
+    :root {
+        --sidebar-width: 68px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+        overflow-x: hidden;
+    }
+
+    .sidebar .brand {
+        justify-content: center;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .sidebar .brand-text,
+    .sidebar .sidebar-section-label,
+    .sidebar .sidebar-menu a .menu-label,
+    .sidebar .sidebar-device-info,
+    .sidebar .sidebar-version {
+        display: none !important;
+    }
+
+    .sidebar .sidebar-menu {
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+
+    .sidebar .sidebar-menu a {
+        justify-content: center;
+        gap: 0;
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+
+    .sidebar .sidebar-menu a .menu-icon {
+        margin: 0;
+    }
+
+    .sidebar .sidebar-footer {
+        min-width: 0;
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+
+    .sidebar .sidebar-device-card {
+        justify-content: center;
+        min-width: 0;
+        padding: 8px 0;
+    }
+
+    .sidebar .sidebar-device-heading {
+        justify-content: center;
+    }
+
+    .sidebar .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        min-height: 42px;
+        margin: 10px auto;
+        padding: 0;
+        border-radius: 12px;
+    }
+
+    .sidebar .theme-toggle-label {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        font-size: 0;
+        line-height: 1;
+    }
+
+    .sidebar .theme-toggle-label::before {
+        content: "☀️";
+        font-size: 20px;
+    }
+
+    html[data-theme="dark"] .sidebar .theme-toggle-label::before {
+        content: "🌙";
+    }
+
+    .sidebar .theme-toggle-state {
+        display: none !important;
+    }
+
+    .main-content {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* HP */
+@media (max-width: 600px) {
+    :root {
+        --sidebar-width: 56px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+    }
+
+    .sidebar .brand {
+        min-height: 70px;
+        padding: 8px 3px;
+    }
+
+    .sidebar .brand-icon {
+        width: 38px;
+        height: 38px;
+        margin: 0 auto;
+        font-size: 20px;
+    }
+
+    .sidebar .sidebar-menu {
+        padding: 8px 5px;
+    }
+
+    .sidebar .sidebar-menu a {
+        min-height: 43px;
+        margin-bottom: 6px;
+        padding: 6px 2px;
+        border-radius: 10px;
+    }
+
+    .sidebar .sidebar-menu a .menu-icon {
+        font-size: 18px;
+    }
+
+    .sidebar .sidebar-footer {
+        padding: 4px;
+    }
+
+    .sidebar .sidebar-device-card {
+        padding: 5px 0;
+        border-radius: 12px;
+    }
+
+    .sidebar .theme-toggle {
+        width: 38px;
+        height: 38px;
+        min-height: 38px;
+        margin: 8px auto;
+        border-radius: 11px;
+    }
+
+    .sidebar .theme-toggle-label::before {
+        font-size: 18px;
+    }
+
+    .main-content {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .main-content .topbar {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .main-content .page-content {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* HP sangat kecil */
+@media (max-width: 360px) {
+    :root {
+        --sidebar-width: 50px;
+    }
+
+    .sidebar {
+        width: var(--sidebar-width);
+    }
+
+    .sidebar .brand-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+    }
+
+    .sidebar .sidebar-menu {
+        padding-right: 3px;
+        padding-left: 3px;
+    }
+
+    .sidebar .sidebar-menu a .menu-icon {
+        font-size: 16px;
+    }
+
+    .sidebar .theme-toggle {
+        width: 34px;
+        height: 34px;
+        min-height: 34px;
+    }
+
+    .main-content {
+        width: calc(100% - var(--sidebar-width));
+        margin-left: var(--sidebar-width);
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+}
+
+/* FIX: tombol tema tetap terlihat di layar HP */
+@media (max-width: 600px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        height: 100vh;
+        height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar .sidebar-footer {
+        margin-top: auto;
+        flex-shrink: 0;
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    .sidebar .theme-toggle {
+        position: sticky;
+        bottom: 8px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin: 8px auto;
+    }
+}
+
+/* ==========================================
+   THEME COLOR FIX — ALL PAGES
+   ========================================== */
+
+/* Warna dasar halaman */
+html[data-theme="light"] {
+    color-scheme: light;
+    --farm-bg: #f4f7fb;
+    --farm-surface: #ffffff;
+    --farm-surface-alt: #edf3f9;
+    --farm-text: #243449;
+    --farm-muted: #687a90;
+    --farm-border: #dce5ef;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --farm-bg: #101923;
+    --farm-surface: #192533;
+    --farm-surface-alt: #223243;
+    --farm-text: #edf4fc;
+    --farm-muted: #b1c0d1;
+    --farm-border: #35475a;
+    --farm-green: #78c98b;
+    --farm-green-dark: #a9e2b5;
+    --farm-green-soft: #263f35;
+    --farm-yellow-soft: #453b27;
+    --farm-shadow: 0 8px 28px rgba(0, 0, 0, .22);
+}
+
+/* Latar halaman dan konten */
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] .page-content {
+    color: var(--farm-text) !important;
+    background: var(--farm-bg) !important;
+}
+
+/* Panel, kartu, tabel, dan kontainer */
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .content-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .status-card,
+html[data-theme="dark"] .table-container,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .dropdown-menu,
+html[data-theme="dark"] .sensor-card,
+html[data-theme="dark"] .dashboard-page .panel,
+html[data-theme="dark"] .history-card,
+html[data-theme="dark"] .monitoring-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .device-card {
+    color: var(--farm-text) !important;
+    background-color: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+    box-shadow: var(--farm-shadow);
+}
+
+/* Judul dan teks utama */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] .page-heading,
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .topbar h1,
+html[data-theme="dark"] .panel-header h2,
+html[data-theme="dark"] .panel-header h3,
+html[data-theme="dark"] .panel h2,
+html[data-theme="dark"] .panel h3,
+html[data-theme="dark"] .sensor-value,
+html[data-theme="dark"] .status-item strong,
+html[data-theme="dark"] .status-item > span:last-child,
+html[data-theme="dark"] .form-label,
+html[data-theme="dark"] label,
+html[data-theme="dark"] td,
+html[data-theme="dark"] .dropdown-menu a,
+html[data-theme="dark"] .dropdown-menu button {
+    color: var(--farm-text) !important;
+}
+
+/* Teks penjelas dan teks sekunder */
+html[data-theme="dark"] p,
+html[data-theme="dark"] .page-heading p,
+html[data-theme="dark"] .topbar p,
+html[data-theme="dark"] .panel p,
+html[data-theme="dark"] .panel-subtitle,
+html[data-theme="dark"] .sensor-card-label,
+html[data-theme="dark"] .sensor-card-footer,
+html[data-theme="dark"] .sensor-footer,
+html[data-theme="dark"] .sensor-value small,
+html[data-theme="dark"] .status-item > span:first-child,
+html[data-theme="dark"] .help-text,
+html[data-theme="dark"] .form-text,
+html[data-theme="dark"] small {
+    color: var(--farm-muted);
+}
+
+/* Tabel */
+html[data-theme="dark"] table {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] thead,
+html[data-theme="dark"] th {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface-alt) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] tbody tr,
+html[data-theme="dark"] tbody td {
+    color: var(--farm-text) !important;
+    background-color: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] tbody tr:hover,
+html[data-theme="dark"] tbody tr:hover td {
+    background-color: var(--farm-surface-alt) !important;
+}
+
+/* Formulir dan pilihan */
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    color: var(--farm-text) !important;
+    background-color: #14202d !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #a2b2c4 !important;
+    opacity: 1;
+}
+
+html[data-theme="dark"] select option {
+    color: var(--farm-text);
+    background-color: var(--farm-surface);
+}
+
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
+    border-color: #76a9ed !important;
+    outline: 2px solid rgba(118, 169, 237, .2);
+}
+
+/* Elemen dengan warna latar yang sebelumnya hard-coded */
+html[data-theme="dark"] .topbar {
+    color: var(--farm-text) !important;
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .system-status,
+html[data-theme="dark"] .user-profile {
+    color: var(--farm-text) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .main-footer {
+    color: var(--farm-muted) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .dashboard-note {
+    color: var(--farm-muted) !important;
+    background: var(--farm-surface-alt) !important;
+    border-color: var(--farm-border) !important;
+}
+
+/* Link dan dropdown */
+html[data-theme="dark"] a:not(.sidebar-menu a):not(.btn) {
+    color: #9fc8ff;
+}
+
+html[data-theme="dark"] a:not(.sidebar-menu a):not(.btn):hover {
+    color: #c3dcff;
+}
+
+/* Pastikan teks tombol tetap terbaca */
+html[data-theme="dark"] button,
+html[data-theme="dark"] .btn {
+    text-shadow: none;
+}
+
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .btn-success,
+html[data-theme="dark"] .btn-danger,
+html[data-theme="dark"] .sidebar-menu a.active {
+    color: #ffffff !important;
+}
+
+/* Teks sidebar tetap kontras */
+html[data-theme="dark"] .sidebar {
+    color: #edf4fc;
+}
+
+html[data-theme="dark"] .sidebar .brand-text strong,
+html[data-theme="dark"] .sidebar .sidebar-menu a,
+html[data-theme="dark"] .sidebar .sidebar-device-heading {
+    color: #edf4fc;
+}
+
+/* Batas dan garis pemisah */
+html[data-theme="dark"] hr {
+    border-color: var(--farm-border);
+}
+
+html[data-theme="dark"] .panel-header,
+html[data-theme="dark"] .status-item {
+    border-color: var(--farm-border) !important;
+}
+
+/* ==========================================
+   FIX LAYOUT: MONITORING, SETTINGS, HISTORY,
+   DAN DEVICE
+========================================== */
+
+/* Ukuran elemen dihitung bersama padding dan border */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Izinkan item grid dan flex mengecil dengan benar */
+.monitoring-grid > *,
+.monitoring-info > *,
+.settings-container > *,
+.settings-panel,
+.threshold-grid > *,
+.device-grid > *,
+.device-grid > *,
+.history-panel,
+.history-header,
+.chart-panel,
+.info-card,
+.panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Jarak dan ukuran teks yang konsisten */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.page-header p {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.chart-panel,
+.info-card,
+.settings-panel,
+.history-panel,
+.device-panel,
+.panel {
+    height: auto;
+    line-height: 1.6;
+}
+
+.chart-panel h2,
+.info-card h3,
+.settings-panel h2,
+.history-header h2,
+.panel h2,
+.panel h3 {
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.chart-panel p,
+.info-card p,
+.settings-panel p,
+.mode-info,
+.form-group label,
+.device-item,
+.detail-row,
+.hardware-item {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Monitoring */
+.monitoring-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.monitoring-info {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.chart-panel,
+.info-card {
+    padding: 20px;
+}
+
+.chart-container {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.info-value {
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+/* Settings */
+.settings-container {
+    width: 100%;
+    min-width: 0;
+}
+
+.settings-panel {
+    width: 100%;
+    padding: 24px;
+}
+
+.threshold-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.settings-panel input:not([type="checkbox"]):not([type="radio"]),
+.settings-panel select,
+.settings-panel textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.btn-group {
+    align-items: center;
+}
+
+.btn-group button,
+.settings-panel button {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+/* History */
+.history-panel {
+    width: 100%;
+    min-width: 0;
+}
+
+.history-header {
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.history-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+    line-height: 1.5;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+/* Device */
+.device-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+}
+
+.device-grid > *,
+.device-grid .panel,
+.device-grid .device-panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.device-grid .panel-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.device-grid .panel-header > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.device-grid .detail-row,
+.device-grid .hardware-item,
+.device-grid .device-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.device-grid .detail-row strong,
+.device-grid .hardware-item strong,
+.device-grid .device-item strong {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Mode gelap: samakan warna panel halaman */
+html[data-theme="dark"] .chart-panel,
+html[data-theme="dark"] .info-card,
+html[data-theme="dark"] .settings-panel,
+html[data-theme="dark"] .history-panel,
+html[data-theme="dark"] .device-panel,
+html[data-theme="dark"] .device-grid .panel {
+    color: var(--farm-text);
+    background: var(--farm-surface);
+    border-color: var(--farm-border);
+}
+
+/* Mode gelap: warna teks di dalam panel */
+html[data-theme="dark"] .chart-panel h2,
+html[data-theme="dark"] .info-card h3,
+html[data-theme="dark"] .settings-panel h2,
+html[data-theme="dark"] .history-header h2,
+html[data-theme="dark"] .device-grid .panel h2,
+html[data-theme="dark"] .device-grid .panel h3,
+html[data-theme="dark"] .device-grid .detail-row,
+html[data-theme="dark"] .device-grid .hardware-item {
+    color: var(--farm-text);
+}
+
+/* Mode gelap: elemen informasi tambahan */
+html[data-theme="dark"] .mode-info,
+html[data-theme="dark"] .device-item {
+    color: var(--farm-text);
+    background: var(--farm-surface-alt);
+    border-color: var(--farm-border);
+}
+
+/* Tampilan tablet */
+@media (max-width: 900px) {
+    .monitoring-grid,
+    .device-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .monitoring-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .settings-container {
+        max-width: 100%;
+    }
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .monitoring-grid,
+    .monitoring-info,
+    .threshold-grid,
+    .device-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .chart-panel,
+    .info-card,
+    .settings-panel,
+    .history-panel,
+    .device-panel,
+    .device-grid .panel {
+        padding: 16px;
+    }
+
+    .chart-container {
+        height: 260px;
+    }
+
+    .history-header {
+        align-items: flex-start;
+    }
+
+    .history-header > * {
+        max-width: 100%;
+    }
+
+    .history-header button,
+    .history-header a {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-group button,
+    .settings-panel button {
+        min-height: 42px;
+    }
+}
+
+/* =========================================================
+   FOOTER FIX - SEMUA MENU
+========================================================= */
+
+.main-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    padding: 16px 24px;
+    margin-top: 24px;
+
+    box-sizing: border-box;
+    line-height: 1.6;
+    font-size: 12px;
+}
+
+.main-footer span {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .main-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 14px 16px;
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   PERBAIKAN LAYOUT FOOTER SEMUA HALAMAN
+========================================================= */
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+.layout {
+    min-height: 100vh;
+    height: auto !important;
+    align-items: stretch;
+}
+
+.main-content {
+    min-width: 0;
+    min-height: 100vh;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    overflow: visible !important;
+}
+
+.content {
+    flex: 1 0 auto;
+    min-width: 0;
+    width: 100%;
+    overflow: visible;
+}
+
+.main-footer {
+    position: relative !important;
+    inset: auto !important;
+    flex-shrink: 0;
+    clear: both;
+
+    width: 100%;
+    min-height: 58px;
+    margin-top: 24px;
+    padding: 16px 24px;
+
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+
+    z-index: 1;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.main-footer span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .main-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 14px 16px;
+    }
+}
+
+
+/* FINAL FIX: FOOTER TIDAK TERTIMBUN */
+
+.layout {
+    display: flex;
+    align-items: stretch;
+    min-height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 100vh;
+    height: auto !important;
+    overflow: visible !important;
+    box-sizing: border-box;
+}
+
+.main-content > .content {
+    flex: 1 0 auto;
+    min-width: 0;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.main-content > .main-footer {
+    position: static !important;
+    flex: 0 0 auto;
+    align-self: stretch;
+    width: 100%;
+    min-width: 0;
+    height: auto !important;
+    min-height: 58px;
+    margin: 24px 0 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 16px 24px;
+    line-height: 1.6;
+    overflow: visible !important;
+    z-index: auto;
+}
+
+.main-content > .main-footer span {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .main-content > .main-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 14px 12px;
+    }
+}
+
+
+/* FIX KONTRAS WARNA TULISAN FOOTER */
+
+/* Mode terang */
+.main-content > .main-footer {
+    color: #374151 !important;
+    background-color: #ffffff !important;
+    border-top: 1px solid #d1d5db !important;
+}
+
+.main-content > .main-footer span {
+    color: #374151 !important;
+    opacity: 1 !important;
+}
+
+/* Mode gelap */
+html[data-theme="dark"] .main-content > .main-footer {
+    color: #f3f4f6 !important;
+    background-color: #1f2937 !important;
+    border-top: 1px solid #4b5563 !important;
+}
+
+html[data-theme="dark"] .main-content > .main-footer span {
+    color: #f3f4f6 !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   FIX KONTRAS IKON - SEMUA MENU
+========================================================= */
+
+/* Ikon navigasi sidebar */
+.sidebar .menu-icon {
+    opacity: 1 !important;
+    filter: none !important;
+    color: #374151;
+}
+
+/* Ikon brand */
+.sidebar .brand-icon {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* Ikon pada kartu dan panel */
+.card-icon,
+.stat-icon,
+.info-icon,
+.device-icon,
+.panel-icon {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* Ikon pada tombol */
+button .menu-icon,
+button .icon,
+.btn .icon {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* Mode gelap: ikon navigasi lebih terang */
+html[data-theme="dark"] .sidebar .menu-icon {
+    color: #f3f4f6 !important;
+    opacity: 1 !important;
+}
+
+/* Ikon pada elemen yang sedang aktif */
+.sidebar .sidebar-menu a.active .menu-icon {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* Pastikan ikon tidak ikut diredupkan */
+.sidebar .sidebar-menu a,
+.sidebar .sidebar-menu a span {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   FIX KONTRAS PROFIL ADMIN DI POJOK KANAN ATAS
+========================================================= */
+
+/* Area profil admin */
+.topbar-right,
+.user-profile {
+    opacity: 1 !important;
+}
+
+/* Nama dan informasi admin */
+.user-profile,
+.user-profile span,
+.user-profile strong,
+.user-profile small,
+.user-profile p {
+    opacity: 1 !important;
+}
+
+/* Avatar admin */
+.user-avatar {
+    opacity: 1 !important;
+    filter: none !important;
+    color: #ffffff !important;
+    background-color: #237a45 !important;
+}
+
+/* Mode terang */
+html[data-theme="light"] .user-profile {
+    color: #1f2937 !important;
+}
+
+html[data-theme="light"] .user-profile span,
+html[data-theme="light"] .user-profile strong,
+html[data-theme="light"] .user-profile small,
+html[data-theme="light"] .user-profile p {
+    color: #374151 !important;
+}
+
+/* Mode gelap */
+html[data-theme="dark"] .user-profile {
+    color: #f9fafb !important;
+}
+
+html[data-theme="dark"] .user-profile span,
+html[data-theme="dark"] .user-profile strong,
+html[data-theme="dark"] .user-profile small,
+html[data-theme="dark"] .user-profile p {
+    color: #f3f4f6 !important;
+}
+
+/* Ikon pada profil admin */
+.user-profile svg,
+.user-profile i,
+.user-profile .icon {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+
+/* =========================================================
+   DASHBOARD INTERACTIVE VISUAL ENHANCEMENT
+========================================================= */
+
+/* Quick Control: ON */
+.quick-control .control-buttons .btn-success {
+    background: linear-gradient(135deg, #16a34a, #15803d) !important;
+    color: #ffffff !important;
+    border: 1px solid #22c55e !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 5px 14px rgba(22, 163, 74, 0.28) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+                filter 0.2s ease !important;
+}
+
+/* Quick Control: OFF */
+.quick-control .control-buttons .btn-danger {
+    background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+    color: #ffffff !important;
+    border: 1px solid #f87171 !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 5px 14px rgba(220, 38, 38, 0.25) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+                filter 0.2s ease !important;
+}
+
+/* Efek interaktif tombol */
+.quick-control .control-buttons .btn-success:hover,
+.quick-control .control-buttons .btn-danger:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+}
+
+.quick-control .control-buttons .btn-success:hover {
+    box-shadow: 0 9px 20px rgba(22, 163, 74, 0.35) !important;
+}
+
+.quick-control .control-buttons .btn-danger:hover {
+    box-shadow: 0 9px 20px rgba(220, 38, 38, 0.32) !important;
+}
+
+.quick-control .control-buttons .btn-success:active,
+.quick-control .control-buttons .btn-danger:active {
+    transform: scale(0.97);
+}
+
+/* Kartu sensor lebih tegas */
+.dashboard-page .sensor-card {
+    border: 1px solid var(--farm-border);
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.dashboard-page .sensor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+/* Ikon sensor lebih jelas */
+.dashboard-page .sensor-icon {
+    opacity: 1 !important;
+    filter: saturate(1.25) !important;
+}
+
+/* Judul panel lebih tegas */
+.dashboard-page .panel-header h2 {
+    font-weight: 750;
+    letter-spacing: -0.3px;
+}
+
+/* Animasi halus ketika halaman dibuka */
+@media (prefers-reduced-motion: no-preference) {
+    .dashboard-page .sensor-card {
+        animation: dashboardCardIn 0.45s ease both;
+    }
+
+    .dashboard-page .sensor-card:nth-child(2) {
+        animation-delay: 0.06s;
+    }
+
+    .dashboard-page .sensor-card:nth-child(3) {
+        animation-delay: 0.12s;
+    }
+
+    .dashboard-page .sensor-card:nth-child(4) {
+        animation-delay: 0.18s;
+    }
+
+    @keyframes dashboardCardIn {
+        from {
+            opacity: 0.65;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Mode gelap: garis dan bayangan tetap terlihat */
+html[data-theme="dark"] .dashboard-page .sensor-card {
+    border-color: var(--farm-border);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+}
+
+html[data-theme="dark"] .dashboard-page .sensor-card:hover {
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+
+/* =========================================
+   CHICKEN FARM DASHBOARD — VISUAL UPGRADE
+   ========================================= */
+
+:root {
+    --farm-green: #237a45;
+    --farm-green-dark: #165c32;
+    --farm-leaf: #dcfce7;
+    --farm-yellow: #facc15;
+    --farm-orange: #f59e0b;
+    --farm-red: #dc2626;
+}
+
+/* Identitas visual peternakan */
+.main-content {
+    background:
+        radial-gradient(ellipse at 95% 0%, rgba(250, 204, 21, .09), transparent 30%),
+        radial-gradient(ellipse at 0% 15%, rgba(34, 197, 94, .07), transparent 35%),
+        var(--farm-bg, #f7f9f4);
+}
+
+/* Judul dan header panel */
+.main-content h1 {
+    color: var(--farm-green-dark);
+    font-weight: 800;
+    letter-spacing: -.6px;
+}
+
+.main-content .panel {
+    border: 1px solid #e2e8d9;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(35, 75, 42, .07);
+    transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+.main-content .panel-header {
+    border-bottom: 1px solid #edf1e8;
+}
+
+.main-content .panel-header h2 {
+    color: var(--farm-green-dark);
+    font-weight: 800;
+}
+
+/* Kartu data sensor */
+.dashboard-page .sensor-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e2e8d9 !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg, #ffffff, #f7fbf3) !important;
+    box-shadow: 0 5px 18px rgba(35, 75, 42, .08) !important;
+    transition: transform .22s ease, box-shadow .22s ease !important;
+}
+
+.dashboard-page .sensor-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #237a45, #84cc16, #facc15);
+}
+
+.dashboard-page .sensor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(35, 75, 42, .14) !important;
+}
+
+.dashboard-page .sensor-card .sensor-icon,
+.dashboard-page .sensor-card svg,
+.dashboard-page .sensor-card i {
+    opacity: 1 !important;
+    filter: saturate(1.2);
+}
+
+/* Quick Control: panel lebih terasa seperti kontrol kandang */
+.quick-control {
+    position: relative;
+    gap: 16px;
+    padding: 20px !important;
+    border: 1px solid #d8e8d4;
+    border-radius: 16px;
+    background: linear-gradient(125deg, #f0fdf4, #ffffff 72%) !important;
+}
+
+.quick-control > div:first-child > span {
+    display: inline-block;
+    color: #14532d !important;
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.quick-control > div:first-child > small {
+    display: block;
+    margin-top: 5px;
+    color: #4b6350 !important;
+    opacity: 1 !important;
+}
+
+/* Tombol ON */
+.quick-control .control-buttons .btn-success {
+    min-height: 44px;
+    padding: 11px 22px !important;
+    border: 1px solid #16a34a !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, #22c55e, #15803d) !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    box-shadow: 0 5px 12px rgba(22, 163, 74, .25) !important;
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease !important;
+}
+
+/* Tombol OFF */
+.quick-control .control-buttons .btn-danger {
+    min-height: 44px;
+    padding: 11px 22px !important;
+    border: 1px solid #dc2626 !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+    color: #ffffff !important;
+    font-weight: 800 !important;
+    box-shadow: 0 5px 12px rgba(220, 38, 38, .22) !important;
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease !important;
+}
+
+.quick-control .control-buttons .btn-success:hover,
+.quick-control .control-buttons .btn-danger:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.07);
+}
+
+.quick-control .control-buttons .btn-success:active,
+.quick-control .control-buttons .btn-danger:active {
+    transform: scale(.97);
+}
+
+/* Ikon dan elemen dekoratif lebih jelas */
+.brand-icon,
+.menu-icon,
+.card-icon,
+.stat-icon,
+.info-icon,
+.device-icon,
+.panel-icon {
+    opacity: 1 !important;
+    filter: saturate(1.2);
+}
+
+/* Footer */
+.main-content > .main-footer {
+    border-top: 1px solid #dce6d8 !important;
+    background: #ffffff !important;
+    color: #36513a !important;
+}
+
+.main-content > .main-footer span {
+    color: #36513a !important;
+    opacity: 1 !important;
+}
+
+/* Profil admin */
+.topbar-right,
+.user-profile {
+    color: #263b2a;
+}
+
+.user-avatar {
+    border: 2px solid #bbf7d0;
+    background: linear-gradient(135deg, #dcfce7, #fef3c7);
+    color: #166534 !important;
+    font-weight: 800;
+}
+
+/* Tema gelap tetap nyaman dibaca */
+html[data-theme="dark"] .main-content h1,
+html[data-theme="dark"] .main-content .panel-header h2 {
+    color: #bbf7d0 !important;
+}
+
+html[data-theme="dark"] .main-content .panel {
+    border-color: #37483a;
+}
+
+html[data-theme="dark"] .dashboard-page .sensor-card {
+    border-color: #37483a !important;
+    background: linear-gradient(145deg, #202b23, #18221b) !important;
+}
+
+html[data-theme="dark"] .quick-control {
+    border-color: #3c6044;
+    background: linear-gradient(125deg, #1d3827, #202b23) !important;
+}
+
+html[data-theme="dark"] .quick-control > div:first-child > span {
+    color: #bbf7d0 !important;
+}
+
+html[data-theme="dark"] .quick-control > div:first-child > small {
+    color: #d1d5db !important;
+}
+
+html[data-theme="dark"] .main-content > .main-footer {
+    border-top-color: #37483a !important;
+    background: #1f2937 !important;
+    color: #f3f4f6 !important;
+}
+
+html[data-theme="dark"] .main-content > .main-footer span {
+    color: #f3f4f6 !important;
+}
+
+/* Responsif untuk layar HP */
+@media (max-width: 600px) {
+    .quick-control {
+        padding: 15px !important;
+    }
+
+    .quick-control .control-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .quick-control .control-buttons .btn {
+        flex: 1 1 100px;
+    }
+}
+
+/* Hormati preferensi pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-page .sensor-card,
+    .quick-control .control-buttons .btn-success,
+    .quick-control .control-buttons .btn-danger {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* =========================================
+   CHICKEN FARM — BANNER IDENTITAS KANDANG
+   ========================================= */
+
+.dashboard-page::before {
+    content: "🐔  FARM MONITORING  •  PEMANTAUAN KANDANG AYAM";
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 22px;
+    padding: 24px 26px;
+    border: 1px solid #bbf7d0;
+    border-left: 6px solid #237a45;
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 90% 20%, rgba(250, 204, 21, .25), transparent 25%),
+        linear-gradient(115deg, #dcfce7 0%, #f0fdf4 48%, #fefce8 100%);
+    color: #14532d;
+    font-size: clamp(17px, 2vw, 24px);
+    font-weight: 850;
+    line-height: 1.5;
+    letter-spacing: -.4px;
+    box-shadow: 0 7px 20px rgba(35, 122, 69, .09);
+}
+
+/* Beri nuansa alami pada area dashboard */
+.dashboard-page {
+    background-image:
+        radial-gradient(circle at 98% 5%, rgba(250, 204, 21, .055) 0 3px, transparent 4px);
+    background-size: 28px 28px;
+}
+
+/* Banner pada tema gelap */
+html[data-theme="dark"] .dashboard-page::before {
+    border-color: #365b40;
+    border-left-color: #4ade80;
+    background:
+        radial-gradient(circle at 90% 20%, rgba(250, 204, 21, .12), transparent 25%),
+        linear-gradient(115deg, #183b27, #20372a 55%, #39351d);
+    color: #dcfce7;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, .18);
+}
+
+/* Tampilan ponsel */
+@media (max-width: 600px) {
+    .dashboard-page::before {
+        padding: 18px 16px;
+        margin-bottom: 16px;
+        border-radius: 14px;
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================
+   FIX + FARM IDENTITY DASHBOARD
+   ========================================= */
+
+/* Banner utama peternakan */
+.dashboard-intro {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 210px !important;
+    margin: 0 0 26px !important;
+    padding: 30px 34px !important;
+    overflow: hidden !important;
+    border: 1px solid #bbf7d0 !important;
+    border-left: 7px solid #237a45 !important;
+    border-radius: 22px !important;
+    background:
+        radial-gradient(circle at 90% 10%, rgba(250,204,21,.28), transparent 30%),
+        linear-gradient(120deg, #dcfce7 0%, #f0fdf4 52%, #fefce8 100%) !important;
+    box-shadow: 0 10px 28px rgba(35,122,69,.10) !important;
+}
+
+.dashboard-intro-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+}
+
+.dashboard-intro .dashboard-eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #166534 !important;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.dashboard-intro h2 {
+    margin: 0 0 12px !important;
+    color: #14532d !important;
+    font-size: clamp(23px, 3vw, 34px) !important;
+    font-weight: 850 !important;
+    line-height: 1.2;
+    letter-spacing: -.7px;
+}
+
+.dashboard-intro p {
+    max-width: 560px;
+    margin: 0 !important;
+    color: #365b40 !important;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Ilustrasi kandang */
+.dashboard-intro .dashboard-illustration {
+    display: block;
+    position: relative;
+    z-index: 1;
+    flex: 0 1 230px;
+    width: 100%;
+    max-width: 230px;
+    max-height: 175px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 9px rgba(22,101,52,.12));
+    transition: transform .25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .dashboard-intro:hover .dashboard-illustration {
+        transform: translateY(-4px) rotate(-2deg);
+    }
+}
+
+/* Kartu sensor seperti panel monitoring kandang */
+.dashboard-grid .sensor-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #dce8d8 !important;
+    border-radius: 18px !important;
+    background: linear-gradient(145deg, #ffffff, #f7fbf4) !important;
+    box-shadow: 0 5px 18px rgba(35,75,42,.07) !important;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.dashboard-grid .sensor-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #237a45, #84cc16, #facc15);
+}
+
+.dashboard-grid .sensor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(35,75,42,.12) !important;
+}
+
+.dashboard-grid .sensor-icon {
+    opacity: 1 !important;
+    filter: saturate(1.3);
+}
+
+/* Tampilan ponsel */
+@media (max-width: 650px) {
+    .dashboard-intro {
+        min-height: auto !important;
+        padding: 23px 20px !important;
+        gap: 12px !important;
+        border-radius: 17px !important;
+    }
+
+    .dashboard-intro .dashboard-illustration {
+        flex: 0 1 100px;
+        max-width: 100px;
+        max-height: 110px;
+    }
+
+    .dashboard-intro p {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+}
+
+@media (max-width: 420px) {
+    .dashboard-intro {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .dashboard-intro .dashboard-illustration {
+        align-self: center;
+        max-width: 145px;
+        max-height: 120px;
+    }
+}
+
+/* Tema gelap */
+html[data-theme="dark"] .dashboard-intro {
+    border-color: #365b40 !important;
+    border-left-color: #4ade80 !important;
+    background:
+        radial-gradient(circle at 90% 10%, rgba(250,204,21,.12), transparent 30%),
+        linear-gradient(120deg, #183b27, #20372a 58%, #39351d) !important;
+}
+
+html[data-theme="dark"] .dashboard-intro h2 {
+    color: #dcfce7 !important;
+}
+
+html[data-theme="dark"] .dashboard-intro p {
+    color: #d1e7d4 !important;
+}
+
+html[data-theme="dark"] .dashboard-intro .dashboard-eyebrow {
+    background: #263c2b;
+    border-color: #45664a;
+    color: #bbf7d0 !important;
+}
+
+html[data-theme="dark"] .dashboard-grid .sensor-card {
+    border-color: #37483a !important;
+    background: linear-gradient(145deg, #202b23, #18221b) !important;
+}
+
+
+/* PANEL KONDISI KANDANG */
+.farm-condition-panel {
+    margin: 0 0 24px;
+    padding: 24px;
+    border: 1px solid #dbe8d7;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #fff, #f6fbf2);
+    box-shadow: 0 8px 24px rgba(35, 75, 42, .08);
+}
+
+.farm-condition-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.farm-condition-eyebrow {
+    color: #237a45;
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 1.4px;
+}
+
+.farm-condition-heading h2 {
+    margin: 8px 0;
+    color: #14532d;
+    font-size: clamp(21px, 2.5vw, 28px);
+    font-weight: 850;
+}
+
+.farm-condition-heading p {
+    margin: 0;
+    color: #526653;
+    line-height: 1.6;
+}
+
+.farm-condition-badge {
+    padding: 9px 13px;
+    border-radius: 999px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.farm-condition-badge.is-online {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.farm-condition-badge.is-offline {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.farm-condition-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.farm-metric {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 17px;
+    border: 1px solid #e2eadf;
+    border-radius: 15px;
+    background: #fff;
+}
+
+.farm-metric-icon {
+    display: grid;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 13px;
+    background: #f0fdf4;
+    font-size: 23px;
+}
+
+.farm-metric-label,
+.farm-metric small {
+    display: block;
+    color: #526653;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.farm-metric strong {
+    display: block;
+    margin: 5px 0;
+    color: #183b27;
+    font-size: clamp(18px, 2vw, 25px);
+    overflow-wrap: anywhere;
+}
+
+.farm-condition-footnote {
+    margin-top: 18px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.farm-condition-panel.condition-good {
+    border-top: 4px solid #16a34a;
+}
+
+.farm-condition-panel.condition-warn {
+    border-top: 4px solid #f59e0b;
+}
+
+.farm-condition-panel.condition-bad {
+    border-top: 4px solid #dc2626;
+}
+
+html[data-theme="dark"] .farm-condition-panel {
+    border-color: #37483a;
+    background: linear-gradient(145deg, #202b23, #18221b);
+}
+
+html[data-theme="dark"] .farm-condition-heading h2,
+html[data-theme="dark"] .farm-metric strong {
+    color: #dcfce7;
+}
+
+html[data-theme="dark"] .farm-condition-heading p,
+html[data-theme="dark"] .farm-metric-label,
+html[data-theme="dark"] .farm-metric small,
+html[data-theme="dark"] .farm-condition-footnote {
+    color: #cbd5ce;
+}
+
+html[data-theme="dark"] .farm-metric {
+    border-color: #37483a;
+    background: #263329;
+}
+
+@media (max-width: 700px) {
+    .farm-condition-panel {
+        padding: 17px;
+    }
+
+    .farm-condition-metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
+```css
+/* =========================================
+   FIX KONTRAS TEKS STATISTIK MODE GELAP
+   ========================================= */
+
+/* Warna judul dan teks umum */
+html[data-theme="dark"] .main-content h1,
+html[data-theme="dark"] .main-content h2,
+html[data-theme="dark"] .main-content h3,
+html[data-theme="dark"] .main-content h4,
+html[data-theme="dark"] .main-content h5,
+html[data-theme="dark"] .main-content h6 {
+    color: var(--farm-text) !important;
+}
+
+/* Teks statistik dan informasi suhu */
+html[data-theme="dark"] .stat-label,
+html[data-theme="dark"] .stat-title,
+html[data-theme="dark"] .stat-value,
+html[data-theme="dark"] .stat-description,
+html[data-theme="dark"] .stat-card *,
+html[data-theme="dark"] .sensor-card *,
+html[data-theme="dark"] .panel *,
+html[data-theme="dark"] .dashboard-card * {
+    border-color: var(--farm-border);
+}
+
+/* Teks keterangan dan label */
+html[data-theme="dark"] .stat-label,
+html[data-theme="dark"] .stat-title,
+html[data-theme="dark"] .stat-description,
+html[data-theme="dark"] .sensor-card-header,
+html[data-theme="dark"] .sensor-footer,
+html[data-theme="dark"] .sensor-card p,
+html[data-theme="dark"] .panel p,
+html[data-theme="dark"] .dashboard-card p {
+    color: var(--farm-muted) !important;
+}
+
+/* Angka statistik tetap terang */
+html[data-theme="dark"] .stat-value,
+html[data-theme="dark"] .sensor-value,
+html[data-theme="dark"] .stat-card strong,
+html[data-theme="dark"] .stat-card h3,
+html[data-theme="dark"] .stat-card h4 {
+    color: var(--farm-text) !important;
+}
+
+/* Label suhu tertinggi, terendah, dan statistik lain */
+html[data-theme="dark"] .temperature-high,
+html[data-theme="dark"] .temperature-low,
+html[data-theme="dark"] .humidity-high,
+html[data-theme="dark"] .humidity-low,
+html[data-theme="dark"] .highest-temperature,
+html[data-theme="dark"] .lowest-temperature {
+    color: var(--farm-text) !important;
+}
+
+/* Pastikan teks umum tidak transparan */
+html[data-theme="dark"] .main-content p,
+html[data-theme="dark"] .main-content span,
+html[data-theme="dark"] .main-content label,
+html[data-theme="dark"] .main-content td {
+    opacity: 1;
+}
+
+/* =========================================
+   FIX DARK MODE - HALAMAN RIWAYAT
+   ========================================= */
+
+html[data-theme="dark"] .history-stat-card {
+    background: var(--farm-surface) !important;
+    border-color: var(--farm-border) !important;
+    color: var(--farm-text) !important;
+}
+
+html[data-theme="dark"] .history-stat-card p {
+    color: var(--farm-muted) !important;
+}
+
+html[data-theme="dark"] .history-stat-card h2 {
+    color: var(--farm-text) !important;
+}
+
+html[data-theme="dark"] .history-stat-card span {
+    color: var(--farm-muted) !important;
+}
+
+html[data-theme="dark"] .history-panel-header h2 {
+    color: var(--farm-text) !important;
+}
+
+html[data-theme="dark"] .history-panel-header p {
+    color: var(--farm-muted) !important;
+}
+
+html[data-theme="dark"] .history-table th {
+    color: var(--farm-text) !important;
+}
+
+html[data-theme="dark"] .history-table td {
+    color: var(--farm-text) !important;
+    border-color: var(--farm-border) !important;
+}
+
+html[data-theme="dark"] .history-result-info,
+html[data-theme="dark"] .history-footer {
+    color: var(--farm-muted) !important;
+}
